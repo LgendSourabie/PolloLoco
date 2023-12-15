@@ -1,35 +1,6 @@
 class World {
   character = new Character();
-  enemies = [new Chicken(), new Chicken(), new Chicken()];
-  clouds = [new Cloud()];
-  backgroundObjects = [
-    // new BackgroundObject("../img/5_background/layers/air.png", 0),
-    // new BackgroundObject("../img/5_background/layers/3_third_layer/1.png", 0),
-    // new BackgroundObject("../img/5_background/layers/2_second_layer/1.png", 0),
-    // new BackgroundObject("../img/5_background/layers/1_first_layer/1.png", 0),
-    new BackgroundObject("../img/5_background/layers/air.png", -719),
-    new BackgroundObject("../img/5_background/layers/3_third_layer/2.png", -719),
-    new BackgroundObject("../img/5_background/layers/2_second_layer/2.png", -719),
-    new BackgroundObject("../img/5_background/layers/1_first_layer/2.png", -719),
-
-    new BackgroundObject("../img/5_background/layers/air.png", 0),
-    new BackgroundObject("../img/5_background/layers/3_third_layer/1.png", 0),
-    new BackgroundObject("../img/5_background/layers/2_second_layer/1.png", 0),
-    new BackgroundObject("../img/5_background/layers/1_first_layer/1.png", 0),
-    new BackgroundObject("../img/5_background/layers/air.png", 719),
-    new BackgroundObject("../img/5_background/layers/3_third_layer/2.png", 719),
-    new BackgroundObject("../img/5_background/layers/2_second_layer/2.png", 719),
-    new BackgroundObject("../img/5_background/layers/1_first_layer/2.png", 719),
-
-    new BackgroundObject("../img/5_background/layers/air.png", 2 * 719),
-    new BackgroundObject("../img/5_background/layers/3_third_layer/1.png", 2 * 719),
-    new BackgroundObject("../img/5_background/layers/2_second_layer/1.png", 2 * 719),
-    new BackgroundObject("../img/5_background/layers/1_first_layer/1.png", 2 * 719),
-    new BackgroundObject("../img/5_background/layers/air.png", 3 * 719),
-    new BackgroundObject("../img/5_background/layers/3_third_layer/2.png", 3 * 719),
-    new BackgroundObject("../img/5_background/layers/2_second_layer/2.png", 3 * 719),
-    new BackgroundObject("../img/5_background/layers/1_first_layer/2.png", 3 * 719),
-  ];
+  level = level1;
   canvas;
   ctx;
   keyboard;
@@ -41,21 +12,33 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
+    this.checkCollision();
   }
 
   setWorld() {
     this.character.world = this;
   }
 
+  checkCollision() {
+    setInterval(() => {
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.iscolliding(enemy)) {
+          this.character.energy -= 5;
+          console.log(this.character.energy);
+        }
+      });
+    }, 200);
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.ctx.translate(this.camera_x, 0);
-    this.addObjectToMap(this.backgroundObjects);
+    this.addObjectToMap(this.level.backgroundObjects);
     this.addToMap(this.character);
-    this.addObjectToMap(this.enemies);
+    this.addObjectToMap(this.level.enemies);
 
-    this.addObjectToMap(this.clouds);
+    this.addObjectToMap(this.level.clouds);
     this.ctx.translate(-this.camera_x, 0);
 
     // Draw will allays be
@@ -74,12 +57,10 @@ class World {
   addToMap(mov) {
     if (mov.otherDirection) {
       this.flipImage(mov);
-      // this.ctx.save();
-      // this.ctx.translate(mov.width, 0);
-      // this.ctx.scale(-1, 1);
-      // mov.x = mov.x * -1;
     }
-    this.ctx.drawImage(mov.img, mov.x, mov.y, mov.width, mov.height);
+    mov.draw(this.ctx);
+
+    mov.drawFrame(this.ctx);
     if (mov.otherDirection) {
       this.flipImageBack(mov);
     }
