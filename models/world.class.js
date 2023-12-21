@@ -5,6 +5,8 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
+  statusBar = new StatusBar();
+  throwableObjects = [new ThrowableObject()];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -23,8 +25,8 @@ class World {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
         if (this.character.iscolliding(enemy)) {
-          this.character.energy -= 5;
-          console.log(this.character.energy);
+          this.character.hit();
+          this.statusBar.setPercentage(this.character.energy);
         }
       });
     }, 200);
@@ -35,10 +37,16 @@ class World {
 
     this.ctx.translate(this.camera_x, 0);
     this.addObjectToMap(this.level.backgroundObjects);
-    this.addToMap(this.character);
-    this.addObjectToMap(this.level.enemies);
 
+    this.ctx.translate(-this.camera_x, 0); //Backward and draw image
+    this.addToMap(this.statusBar);
+    this.ctx.translate(this.camera_x, 0); //Forward
+
+    this.addToMap(this.character);
     this.addObjectToMap(this.level.clouds);
+    this.addObjectToMap(this.level.enemies);
+    this.addObjectToMap(this.throwableObjects);
+
     this.ctx.translate(-this.camera_x, 0);
 
     // Draw will allays be

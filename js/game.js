@@ -27,10 +27,14 @@ window.addEventListener("keydown", function (e) {
   if (e.key === " ") {
     keyboard.SPACE = true;
   }
+  if (e.key === "d") {
+    keyboard.D = true;
+  }
   // console.log(e);
 });
 
 window.addEventListener("keyup", function (e) {
+  // console.log(e);
   if (e.key === "ArrowRight") {
     keyboard.RIGHT = false;
   }
@@ -45,6 +49,9 @@ window.addEventListener("keyup", function (e) {
   }
   if (e.key === " ") {
     keyboard.SPACE = false;
+  }
+  if (e.key === "d") {
+    keyboard.D = false;
   }
   // console.log(e);
 });
