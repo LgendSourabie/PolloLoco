@@ -1,10 +1,104 @@
+@font-face {
+  font-family: "zabras";
+  src: url("fonts/zabars/ZABARS/Zabars.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url("../img/background-image.jpg"), linear-gradient(to bottom, rgba(230, 130, 72, 0.5), rgba(77, 171, 101, 0.5));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-clip: border-box;
+  background-size: cover;
+}
+html {
+  overflow: hidden;
+}
+canvas {
+  /* background-color: black; */
+  border: 8px solid rgba(255, 255, 255, 0.8);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  background-image: url("../img/background-image.jpg"), linear-gradient(to bottom, rgba(230, 130, 72, 0.5), rgba(77, 171, 101, 0.5));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-clip: border-box;
+  background-size: cover;
+  display: block;
 }
 
-canvas {
-  background-color: black;
+h1 {
+  font-family: "zabras", system-ui, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 7vw;
+  letter-spacing: 0.25rem;
+  text-transform: capitalize;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  color: rgba(0, 0, 0, 0.5);
+  text-shadow: 4px 20px 2px 0 rgba(0, 0, 0, 0.5);
+}
+.help-btn,
+.help-btn-1 {
+  font-family: "zabras", system-ui, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 5vw;
+  width: 6vw;
+  height: 6vw;
+  letter-spacing: 0.25rem;
+  position: absolute;
+  top: 20vh;
+  left: 4.5vw;
+  background-color: burlywood;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid rgba(0, 0, 0, 0.5);
+  /* color: sienna; */
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background-color, transform 400ms ease-in-out;
+}
+.help-btn:hover,
+.help-btn-1:hover {
+  background-color: rgb(218, 158, 78);
+  transform: scale(1.05);
+}
+
+.help-btn-1 {
+  top: 40vh;
+  left: 4.5vw;
+}
+
+@media only screen and (max-width: 1450px) {
+  .help-btn {
+    left: 2vw;
+    top: 12px;
+  }
+  .help-btn-1 {
+    left: 11vw;
+    top: 12px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  canvas {
+    width: 100%;
+  }
+  /* .help-btn {
+    left: 2vw;
+    top: 12px;
+  }
+  .help-btn-1 {
+    left: 11vw;
+    top: 12px;
+  } */
+}
+@media only screen and (max-height: 560px) {
+  canvas {
+    height: 100vh;
+  }
 }

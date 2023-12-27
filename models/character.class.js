@@ -1,8 +1,8 @@
 class Character extends MovableObject {
   width = 200;
   height = 300;
-  // y = 125;
-  y = 5;
+  // y = 168;
+  y = 1;
   speed = 10;
   IMAGES_WALKING = [
     "../img/2_character_pepe/2_walk/W-21.png",
@@ -74,6 +74,16 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+
+        // setTimeout(() => {
+        //   canvas = document.getElementById("canvas");
+        //   const ctx = canvas.getContext("2d");
+        //   const img = new Image();
+        //   img.onload = function () {
+        //     ctx.drawImage(img, 0, 0, 1200, 560);
+        //   };
+        //   img.src = "./img/5_background/complete_background.png";
+        // }, 5000);
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
