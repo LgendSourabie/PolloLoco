@@ -76,6 +76,7 @@ function handleButtonClick(event, x, y, width, height, callback) {
 // }
 
 function playGame() {
+  initLevel();
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 

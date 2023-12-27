@@ -1,6 +1,4 @@
 class DrawableObject {
-  canvasWidth = 1200;
-  canvasHeigth = 560;
   img;
   currentImage = 0;
   imageCache = {};

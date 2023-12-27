@@ -6,9 +6,12 @@ class World {
   keyboard;
   camera_x = 0;
   statusBar = new StatusBar();
+  statusCoin = new StatusCoin();
   throwableObjects = [];
   canvasWidth = 1200;
   canvasHeigth = 560;
+  statusBottle = new StatusBottle();
+  statusEndboss = new StatusEndboss();
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -53,10 +56,17 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0); //Backward and draw image
     this.addToMap(this.statusBar);
+    // this.addToMap(this.statusBarLife);
+    this.addToMap(this.statusCoin);
+    this.addToMap(this.statusBottle);
+    this.addToMap(this.statusEndboss);
+    // this.addToMap(this.statusBarEndbossIcon);
+
     this.ctx.translate(this.camera_x, 0); //Forward
 
     this.addToMap(this.character);
     this.addObjectToMap(this.level.clouds);
+
     this.addObjectToMap(this.level.enemies);
     this.addObjectToMap(this.throwableObjects);
 
