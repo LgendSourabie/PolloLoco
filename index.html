@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css " />
+    <!-- // Favicon start -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png" />
+    <link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- Favicon end -->
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
     <script src="./models/character.class.js"></script>
@@ -15,6 +23,8 @@
     <script src="./models/statusBar-bottle.class.js"></script>
     <script src="./models/statusBar-coin.class.js"></script>
     <script src="./models/statusBar-endboss.class.js"></script>
+    <script src="./models/bottle.class.js"></script>
+    <script src="./models/coin.class.js"></script>
     <script src="./models/world.class.js"></script>
     <script src="./models/background-object.class.js"></script>
     <script src="./models/keyboard.class.js"></script>
@@ -22,20 +32,36 @@
     <script src="./models/level.class.js"></script>
     <script src="./models/endboss.class.js"></script>
     <script src="./levels/level1.js"></script>
-    <title>Pollo loco</title>
+    <title>El Pollo Loco</title>
   </head>
-  <body onload="playGame()">
-    <!-- <body> -->
-    <!-- <body onload="init()"> -->
-    <h1><button class="help-btn">i</button> <button class="help-btn-1">?</button>El Pollo loco</h1>
+  <body>
+    <h1>
+      <button id="game-info" class="help-btn" onclick="renderGameInfos()">i</button>
+      <button id="help" class="help-btn-1" onclick="renderGameHelp()">?</button>
+      El Pollo loco
+    </h1>
+    <main id="main">
+      <canvas class="canvas d-none" id="canvas" width="1200" height="560"></canvas>
+      <img id="startscreen" class="startscreen" src="./img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
+      <!-- // button group to play the game on mobile devices -->
+      <button id="btn-play" class="btn btn-play" onclick="playGame()">Play Game</button>
+      <button id="btn-try-again" class="btn btn-play btn-try-again d-none" onclick="tryAgain()">Try Again</button>
+      <button id="arrow-left" class="btn btn-secondary btn-left d-none"><img src="./icons/arrow-left.svg" alt="Left" /></button>
+      <button id="arrow-right" class="btn btn-secondary btn-right d-none"><img src="./icons/arrow-right.svg" alt="Right" /></button>
+      <button id="arrow-up" class="btn btn-secondary btn-up d-none"><img src="./icons/arrow-up.svg" alt="Up" /></button>
+      <button id="throw" class="btn btn-secondary btn-throw d-none"><img src="./icons/circle.svg" alt="Throw" /></button>
+      <button id="volume-high" class="btn btn-volume" onclick="toggleVolume()"><img src="./icons/volume-high.svg" alt="Volume" /></button>
+      <button id="btn-fullscreen" class="btn btn-fullscreen d-none"><img src="./icons/maximize.svg" alt="Fullscreen" /></button>
+      <!-- // Container for info about how to play the game -->
+      <div id="info-container" class="how-to-play full-canvas d-none">info</div>
+      <!-- //Game over page to which allow the user to play the game again -->
 
-    <!-- <button class="help-btn"><img src="../icons/info.svg" alt="Info" /></button> -->
-    <canvas class="canvas" id="canvas" width="1200" height="560"></canvas>
-    <main>
-      <img class="d-none" src="./img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
-      <div class="info d-none"></div>
+      <img id="game-over-win" class="game-over d-none" src="./img/9_intro_outro_screens/game_over/game over!.png" alt="Game over" />
+      <img id="game-over-lost" class="game-over d-none" src="./img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="Game over" />
+
+      <button class="btn btn-play d-none">Play Again</button>
     </main>
 
-    <script src="/js/game.js"></script>
+    <script src="./js/game.js"></script>
   </body>
 </html>

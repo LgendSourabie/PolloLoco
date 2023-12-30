@@ -2,12 +2,16 @@
   font-family: "zabras";
   src: url("fonts/zabars/ZABARS/Zabars.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
+@font-face {
+  font-family: "komika";
+  src: url("../fonts/komika.hand-bold.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("../img/background-image.jpg"), linear-gradient(to bottom, rgba(230, 130, 72, 0.5), rgba(77, 171, 101, 0.5));
+  background-image: url("img/background-image.jpg"), linear-gradient(to bottom, rgba(230, 130, 72, 0.5), rgba(77, 171, 101, 0.5));
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -19,10 +23,10 @@ html {
 }
 canvas {
   position: relative;
-  border: 8px solid rgba(255, 255, 255, 0.8);
+  /* border: 8px solid rgba(255, 255, 255, 0.8); */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
-  background-image: url("../img/background-image.jpg"), linear-gradient(to bottom, rgba(230, 130, 72, 0.5), rgba(77, 171, 101, 0.5));
+  background-image: url("img/background-image.jpg"), linear-gradient(to bottom, rgba(230, 130, 72, 0.5), rgba(77, 171, 101, 0.5));
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -76,23 +80,144 @@ h1 {
   display: none;
 }
 
-/* .info {
+.btn {
   position: absolute;
-  background-color: blue;
-  height: 560px;
-  width: 1200px;
-  top: 145px;
-  display: none;
-} */
+  cursor: pointer;
+}
+
+.btn-play {
+  top: 2vw;
+  background: goldenrod;
+  padding-inline: 2vw;
+  padding-block: 1vw;
+  border-radius: 40rem;
+  border: 4px solid;
+  font-family: "komika", system-ui;
+  font-size: 5vw;
+  font-weight: 800;
+  transition: background-color 300ms ease-in-out;
+}
+.btn-play:hover {
+  background-color: rgb(169, 126, 17);
+}
+
+.btn-try-again {
+  z-index: 2;
+}
+.btn-secondary {
+  height: 6vw;
+  width: 6vw;
+  border-radius: 50%;
+  background: transparent;
+}
+.btn-volume {
+  height: 5vw;
+  width: 5vw;
+  border-radius: 50%;
+  background: transparent;
+  right: 2vw;
+  bottom: 1vw;
+}
+.btn-third {
+  height: 4vw;
+  width: 5vw;
+  border-radius: 50%;
+  background: transparent;
+}
+.btn-third-fi {
+  height: 4vw;
+  width: 8vw;
+  border-radius: 50%;
+  background: transparent;
+}
+.btn-fullscreen {
+  height: 6vw;
+  width: 6vw;
+  background: transparent;
+  top: 0;
+  right: 0;
+}
+.btn-full-rect {
+  height: 4vw;
+  width: 14vw;
+  background: transparent;
+}
+.btn-fi {
+  cursor: pointer;
+}
+.btn-left {
+  right: 58vw;
+}
+.btn-right {
+  right: 35vw;
+}
+.btn-rotate {
+  right: 25vw;
+}
+.btn-up {
+  right: 42.5vw;
+}
+.btn-throw {
+  right: 50vw;
+}
+.startscreen {
+  max-height: 560px;
+  object-fit: cover;
+}
+.how-to-play div {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.btn-close {
+  position: absolute;
+  top: 2vw;
+  right: 5vw;
+  border: transparent;
+}
+h2 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-bottom: 1rem;
+}
 
 main {
-  border: 8px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  border: 12px solid rgba(255, 255, 255, 0.8);
   width: 1200px;
-  height: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
 }
 main img {
   width: 100%;
   height: 100%;
+}
+.full-canvas {
+  width: 100%;
+  max-height: 560px;
+  overflow-y: auto;
+  font-size: 3vw;
+  font-family: system-ui;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  box-sizing: border-box;
+}
+.big-letter {
+  font-size: 5vw;
+  font-weight: bold;
+}
+.game-over {
+  position: absolute;
+  max-height: 560px;
 }
 
 @media only screen and (max-width: 1450px) {
@@ -107,18 +232,18 @@ main img {
 }
 
 @media only screen and (max-width: 1200px) {
-  canvas {
-    width: 100%;
-  }
-  .info {
+  main,
+  canvas,
+  .startscreen,
+  .game-over {
     width: 100%;
   }
 }
 @media only screen and (max-height: 560px) {
-  canvas {
-    height: 100vh;
-  }
-  .info {
+  main,
+  canvas,
+  .startscreen,
+  .game-over {
     height: 100vh;
   }
 }
