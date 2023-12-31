@@ -15,20 +15,21 @@ gameStartMusic = new Audio("./audios/music.mp3");
 let keyboard = new Keyboard();
 // let gameStartMusic = new Audio("../audios/music.mp3");
 let world;
+let isRunning = false;
 
-function startBackgroundMusic() {
-  gameStartMusic.play();
-  gameStartMusic.muted = true;
-}
-document.addEventListener("mouseover", startBackgroundMusic());
+// function startBackgroundMusic() {
+//   gameStartMusic.play();
+//   gameStartMusic.muted = true;
+// }
+// document.addEventListener("click", startBackgroundMusic());
 
-function toggleVolume() {
-  if (gameStartMusic.muted) {
-    gameStartMusic.muted = false;
-  } else {
-    gameStartMusic.muted = true;
-  }
-}
+// function toggleVolume() {
+//   if (gameStartMusic.muted) {
+//     gameStartMusic.muted = false;
+//   } else {
+//     gameStartMusic.muted = true;
+//   }
+// }
 
 btnFullscreen.addEventListener("click", () => {
   main = document.getElementById("main");
@@ -122,7 +123,7 @@ window.addEventListener("keyup", function (e) {
 });
 
 function enableDisplay() {
-  document.getElementById("startscreen").classList.add("d-none");
+  document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("btn-play").classList.add("d-none");
   document.getElementById("game-info").classList.add("d-none");
   document.getElementById("help").classList.add("d-none");
@@ -133,6 +134,7 @@ function disableDisplay() {
 }
 
 function playGame() {
+  isRunning = true;
   enableDisplay();
   disableDisplay();
   init();
@@ -217,8 +219,7 @@ const markupHelp = `
   `;
 
 function renderGameInfos() {
-  // infoPage.innerHTML = "";
-  document.getElementById("startscreen").classList.add("d-none");
+  document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("btn-play").classList.add("d-none");
   btnFullscreen.classList.add("d-none");
   infoPage.classList.remove("d-none");
@@ -226,20 +227,57 @@ function renderGameInfos() {
 }
 
 function renderGameHelp() {
-  document.getElementById("startscreen").classList.add("d-none");
+  document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("btn-play").classList.add("d-none");
   btnFullscreen.classList.add("d-none");
   infoPage.classList.remove("d-none");
   infoPage.innerHTML = markupHelp;
-  // infoPage.insertAdjacentHTML("afterbegin", markup);
 }
 
 function closeInfoPage() {
-  document.getElementById("startscreen").classList.remove("d-none");
+  document.getElementById("start-screen").classList.remove("d-none");
   document.getElementById("btn-play").classList.remove("d-none");
   btnFullscreen.classList.remove("d-none");
   infoPage.classList.add("d-none");
 }
 
-// gameHelp.addEventListener("click", renderGameInstruction(markupHelp));
-// gameInfo.addEventListener("click", renderGameInstruction(markupInfo));
+function turnScreenOrientation() {
+  if (!isRunning) {
+    if (screen.height > screen.width) {
+      document.getElementById("turn-screen").classList.remove("d-none");
+      document.getElementById("start-screen").classList.add("d-none");
+      document.getElementById("btn-play").classList.add("d-none");
+      document.getElementById("volume-high").classList.add("d-none");
+    } else {
+      document.getElementById("turn-screen").classList.add("d-none");
+      document.getElementById("start-screen").classList.remove("d-none");
+      document.getElementById("btn-play").classList.remove("d-none");
+      document.getElementById("volume-high").classList.remove("d-none");
+    }
+  } else {
+    if (screen.height > screen.width) {
+      document.getElementById("turn-screen").classList.remove("d-none");
+      document.getElementById("canvas").classList.add("d-none");
+      document.getElementById("volume-high").classList.add("d-none");
+      document.getElementById("arrow-left").classList.add("d-none");
+      document.getElementById("arrow-right").classList.add("d-none");
+      document.getElementById("arrow-up").classList.add("d-none");
+      document.getElementById("throw").classList.add("d-none");
+
+      btnFullscreen.classList.add("d-none");
+    } else {
+      document.getElementById("turn-screen").classList.add("d-none");
+      document.getElementById("canvas").classList.remove("d-none");
+      document.getElementById("volume-high").classList.remove("d-none");
+      document.getElementById("arrow-left").classList.remove("d-none");
+      document.getElementById("arrow-right").classList.remove("d-none");
+      document.getElementById("arrow-up").classList.remove("d-none");
+      document.getElementById("throw").classList.remove("d-none");
+      btnFullscreen.classList.remove("d-none");
+    }
+  }
+}
+
+let intID = setInterval(() => {
+  screen.orientation.addEventListener("change", turnScreenOrientation);
+}, 100);

@@ -146,19 +146,19 @@ h1 {
   cursor: pointer;
 }
 .btn-left {
-  right: 58vw;
+  right: 63vw;
 }
 .btn-right {
-  right: 35vw;
+  right: 30vw;
 }
 .btn-rotate {
   right: 25vw;
 }
 .btn-up {
-  right: 42.5vw;
+  right: 40.5vw;
 }
 .btn-throw {
-  right: 50vw;
+  right: 51vw;
 }
 .startscreen {
   max-height: 560px;
@@ -197,7 +197,7 @@ main {
   align-items: center;
   justify-content: flex-end;
 }
-main img {
+main img:not(.mobile) {
   width: 100%;
   height: 100%;
 }
@@ -219,6 +219,33 @@ main img {
   position: absolute;
   max-height: 560px;
 }
+.turn-screen {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  max-height: 560px;
+  padding-block: 6vw;
+}
+.mobile {
+  width: 27vw;
+  height: 37vw;
+  margin: 0 auto;
+  display: block;
+  filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(208deg) brightness(102%) contrast(102%);
+  animation-name: rotateMobile;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes rotateMobile {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
 
 @media only screen and (max-width: 1450px) {
   .help-btn {
@@ -235,7 +262,8 @@ main img {
   main,
   canvas,
   .startscreen,
-  .game-over {
+  .game-over,
+  .turn-screen {
     width: 100%;
   }
 }
@@ -243,7 +271,8 @@ main img {
   main,
   canvas,
   .startscreen,
-  .game-over {
+  .game-over,
+  .turn-screen {
     height: 100vh;
   }
 }

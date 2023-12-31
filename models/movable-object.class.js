@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
   otherDirection = false;
 
   speedY = 0;
-  acceleration = 2;
+  acceleration = 4;
   energy = 100;
   lastHit = 0;
   endbossHealth = 10;
@@ -56,7 +56,7 @@ class MovableObject extends DrawableObject {
 
   hit(lostEnergy) {
     this.energy -= lostEnergy;
-    if (this.energy < 0) {
+    if (this.energy < 20) {
       this.energy = 0;
     } else {
       this.lastHit = new Date().getTime();
@@ -65,7 +65,7 @@ class MovableObject extends DrawableObject {
 
   endbossHit() {
     this.endbossHealth -= 1;
-    if (this.endbossHealth < 0) {
+    if (this.endbossHealth < 2) {
       this.endbossHealth = 0;
     } else {
       this.lastHit = new Date().getTime();
@@ -105,7 +105,7 @@ class MovableObject extends DrawableObject {
   }
 
   jump() {
-    this.speedY = 25;
+    this.speedY = 30;
   }
   gameOver() {
     document.getElementById("game-over").classList.remove("d-none");

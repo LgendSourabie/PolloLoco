@@ -14,11 +14,6 @@ class DrawableObject {
 
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    // try {
-    //   ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    // } catch (err) {
-    //   console.log("ERRR FIND HERE:", this.img);
-    // }
   }
 
   drawFrame(ctx) {
@@ -40,15 +35,15 @@ class DrawableObject {
   }
 
   resolveImageIndexCoinBottle() {
-    if (this.percentage > 100) {
+    if (this.percentage >= 100) {
       return 5;
-    } else if (this.percentage > 80) {
+    } else if (this.percentage >= 80) {
       return 4;
-    } else if (this.percentage > 60) {
+    } else if (this.percentage >= 60) {
       return 3;
-    } else if (this.percentage > 40) {
+    } else if (this.percentage >= 40) {
       return 2;
-    } else if (this.percentage > 20) {
+    } else if (this.percentage >= 20) {
       return 1;
     } else {
       return 0;

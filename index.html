@@ -42,7 +42,7 @@
     </h1>
     <main id="main">
       <canvas class="canvas d-none" id="canvas" width="1200" height="560"></canvas>
-      <img id="startscreen" class="startscreen" src="./img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
+      <img id="start-screen" class="startscreen" src="./img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
       <!-- // button group to play the game on mobile devices -->
       <button id="btn-play" class="btn btn-play" onclick="playGame()">Play Game</button>
       <button id="btn-try-again" class="btn btn-play btn-try-again d-none" onclick="tryAgain()">Try Again</button>
@@ -50,7 +50,7 @@
       <button id="arrow-right" class="btn btn-secondary btn-right d-none"><img src="./icons/arrow-right.svg" alt="Right" /></button>
       <button id="arrow-up" class="btn btn-secondary btn-up d-none"><img src="./icons/arrow-up.svg" alt="Up" /></button>
       <button id="throw" class="btn btn-secondary btn-throw d-none"><img src="./icons/circle.svg" alt="Throw" /></button>
-      <button id="volume-high" class="btn btn-volume" onclick="toggleVolume()"><img src="./icons/volume-high.svg" alt="Volume" /></button>
+      <button id="volume-high" class="btn btn-volume"><img src="./icons/volume-high.svg" alt="Volume" /></button>
       <button id="btn-fullscreen" class="btn btn-fullscreen d-none"><img src="./icons/maximize.svg" alt="Fullscreen" /></button>
       <!-- // Container for info about how to play the game -->
       <div id="info-container" class="how-to-play full-canvas d-none">info</div>
@@ -58,6 +58,7 @@
 
       <img id="game-over-win" class="game-over d-none" src="./img/9_intro_outro_screens/game_over/game over!.png" alt="Game over" />
       <img id="game-over-lost" class="game-over d-none" src="./img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="Game over" />
+      <div id="turn-screen" class="turn-screen d-none"><img class="mobile" src="./icons/mobile-screen.svg" alt="Mobile" /></div>
 
       <button class="btn btn-play d-none">Play Again</button>
     </main>

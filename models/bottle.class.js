@@ -3,12 +3,16 @@ class Bottle extends DrawableObject {
   height = 80;
   index = Math.trunc(Math.random() * 2);
 
-  offset_xPlus = 10;
-  offset_xMinus = 10;
-  offset_yPlus = 10;
-  offset_yMinus = 10;
+  offset_xPlus = 20;
+  offset_xMinus = 20;
+  offset_yPlus = 20;
+  offset_yMinus = 20;
   IMAGES = ["img/6_salsa_bottle/1_salsa_bottle_on_ground.png", "img/6_salsa_bottle/2_salsa_bottle_on_ground.png"];
 
+  /**
+   *
+   * @param {integer} x : position of the bottle on the ground
+   */
   constructor(x) {
     super().loadImage(this.IMAGES[this.index]);
     this.x = x + Math.random() * 2000;

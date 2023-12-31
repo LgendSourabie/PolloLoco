@@ -31,14 +31,14 @@ class ThrowableObject extends MovableObject {
   }
 
   throw() {
-    this.speedY = 18;
+    this.speedY = 15;
     this.applyGravity();
     this.lastInteraction = new Date().getTime();
     this.sound_bottle.play();
     setInterval(() => {
-      this.x += 25;
+      this.x += 10;
       this.animate();
-    }, 25);
+    }, 15);
   }
 
   animate() {

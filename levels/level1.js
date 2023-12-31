@@ -27,7 +27,7 @@ function initLevel() {
       new Chicken(4 * 1300),
       new SmallChicken(4 * 1250),
       new Chicken(4 * 1400),
-      new Endboss(3800),
+      new Endboss(5600),
     ],
     [
       new Cloud("img/5_background/layers/4_clouds/1.png", 1100),

@@ -34,7 +34,7 @@ class World {
   run() {
     setInterval(() => {
       // this.checkCollisions();
-      this.checkCollisions(this.level.enemies, 1);
+      this.checkCollisions(this.level.enemies, 2);
       this.checkCollisions(this.level.bottles, 1);
       this.checkCollisions(this.level.coins, 1);
       this.checkCollisionsBottleEnemies();
@@ -47,7 +47,6 @@ class World {
       this.remainingBottles -= 21;
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
       this.throwableObjects.push(bottle);
-      // this.checkCollisionBottleEnemies(bottle);
       this.statusBottle.setPercentage(this.remainingBottles);
     }
   }
@@ -56,7 +55,7 @@ class World {
     object.forEach((enemy, i) => {
       if (this.character.isColliding(enemy)) {
         if (enemy instanceof Chicken) {
-          this.isEnemyDead(this.level.enemies, i, 3 * lostEnergy);
+          this.isEnemyDead(this.level.enemies, i, 2 * lostEnergy);
         }
         if (enemy instanceof SmallChicken) {
           this.isEnemyDead(this.level.enemies, i, lostEnergy);
@@ -75,10 +74,6 @@ class World {
           this.statusCoin.setPercentage(this.remainingCoins);
           object.splice(i, 1);
         }
-        // if (this.level.enemy instanceof Endboss) {
-        //   this.character.hit(2 * this.character.energy);
-        //   this.statusBar.setPercentage(this.character.energy);
-        // }
       }
     });
   }
@@ -92,11 +87,13 @@ class World {
       object.splice(removeEnemyIndex, 1);
       if (!(object instanceof SmallChicken)) {
         this.character.jump();
-        this.jump_sound.play();
+        // this.jump_sound.play();
+        // document.getElementById("volume-high").addEventListener("click", () => (this.jump_sound.muted = true));
       }
       if (object instanceof SmallChicken && !object.isAboveGround()) {
         this.character.jump();
-        this.jump_sound.play();
+        // this.jump_sound.play();
+        // document.getElementById("volume-high").addEventListener("click", () => (this.jump_sound.muted = true));
       }
     }
   }

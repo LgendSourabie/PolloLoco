@@ -7,10 +7,10 @@ class Endboss extends MovableObject {
 
   win_sound = new Audio("audios/win.mp3");
 
-  // offset_xPlus = 100;
-  // offset_xMinus = 100;
-  // offset_yPlus = 0;
-  // offset_yMinus = 0;
+  offset_xPlus = 10;
+  offset_xMinus = 10;
+  offset_yPlus = 10;
+  offset_yMinus = 10;
 
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/1_walk/G1.png",
@@ -63,7 +63,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_DEAD);
         setTimeout(() => {
           for (let i = 1; i < 9999; i++) window.clearInterval(i);
-        }, 1000);
+        }, 1000 / 60);
         this.win_sound.play();
         this.showGameOverWinScreen();
       } else if (this.endbossHealth !== 10) {
