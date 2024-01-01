@@ -59,7 +59,7 @@ class Endboss extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.endbossIsDead()) {
+      if (this.isEndbossDead()) {
         this.playAnimation(this.IMAGES_DEAD);
         setTimeout(() => {
           for (let i = 1; i < 9999; i++) window.clearInterval(i);

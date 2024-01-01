@@ -4,7 +4,7 @@
 }
 @font-face {
   font-family: "komika";
-  src: url("../fonts/komika.hand-bold.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+  src: url("fonts/komika.hand-bold.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 body {
   display: flex;
@@ -197,6 +197,7 @@ main {
   align-items: center;
   justify-content: flex-end;
 }
+
 main img:not(.mobile) {
   width: 100%;
   height: 100%;
@@ -267,6 +268,17 @@ main img:not(.mobile) {
     width: 100%;
   }
 }
+/* @media (width<600px) {
+  .landscape {
+    transform: rotate(90deg);
+    margin: auto;
+    
+    height: 100vh;
+  }
+  .btn-secondary {
+    display: unset;
+  }
+} */
 @media only screen and (max-height: 560px) {
   main,
   canvas,
@@ -276,3 +288,21 @@ main img:not(.mobile) {
     height: 100vh;
   }
 }
+
+@media screen and (orientation: portrait) {
+  .turn-screen {
+    display: block;
+  }
+  .btn-play,
+  .canvas,
+  .game-over,
+  .btn-volume,
+  .startscreen {
+    display: none;
+  }
+}
+/* @media screen and (orientation: landscape) {
+  .btn-secondary {
+    display: block;
+  }
+} */

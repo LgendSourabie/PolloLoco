@@ -35,10 +35,11 @@ class ThrowableObject extends MovableObject {
     this.applyGravity();
     this.lastInteraction = new Date().getTime();
     this.sound_bottle.play();
+    document.getElementById("volume-high").addEventListener("click", () => (this.sound_bottle.muted = true));
     setInterval(() => {
-      this.x += 10;
+      this.x += 14;
       this.animate();
-    }, 15);
+    }, 8);
   }
 
   animate() {

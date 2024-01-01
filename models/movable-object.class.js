@@ -1,7 +1,7 @@
 class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
-
+  chickens_life = 1;
   speedY = 0;
   acceleration = 4;
   energy = 100;
@@ -19,8 +19,10 @@ class MovableObject extends DrawableObject {
       if (this.hasJump()) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
+        if (this.y > 169 && this instanceof Character) this.y = 169;
+        if (this.y > 396 && this instanceof SmallChicken) this.y = 396;
       }
-    }, 1000 / 25);
+    }, 25);
   }
 
   hasJump() {
@@ -72,7 +74,20 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  endbossIsDead() {
+  chickenHit() {
+    this.chickens_life -= 1;
+    if (this.chickens_life <= 0) {
+      this.chickens_life = 0;
+    } else {
+      this.lastHit = new Date().getTime();
+    }
+  }
+
+  isChickenDead() {
+    return this.chickens_life === 0;
+  }
+
+  isEndbossDead() {
     return this.endbossHealth === 0;
   }
 

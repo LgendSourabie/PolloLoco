@@ -85,15 +85,18 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
+      this.walking_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
         this.walking_sound.play();
+        document.getElementById("volume-high").addEventListener("click", () => (this.walking_sound.muted = true));
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
         this.walking_sound.play();
+        document.getElementById("volume-high").addEventListener("click", () => (this.walking_sound.muted = true));
       }
 
       if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {

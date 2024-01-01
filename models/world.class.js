@@ -87,13 +87,9 @@ class World {
       object.splice(removeEnemyIndex, 1);
       if (!(object instanceof SmallChicken)) {
         this.character.jump();
-        // this.jump_sound.play();
-        // document.getElementById("volume-high").addEventListener("click", () => (this.jump_sound.muted = true));
       }
       if (object instanceof SmallChicken && !object.isAboveGround()) {
         this.character.jump();
-        // this.jump_sound.play();
-        // document.getElementById("volume-high").addEventListener("click", () => (this.jump_sound.muted = true));
       }
     }
   }
