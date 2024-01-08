@@ -34,12 +34,12 @@ class World {
   run() {
     setInterval(() => {
       // this.checkCollisions();
-      this.checkCollisions(this.level.enemies, 2);
-      this.checkCollisions(this.level.bottles, 1);
-      this.checkCollisions(this.level.coins, 1);
+      this.checkCollisions(this.level.enemies, 0.5);
+      this.checkCollisionWithBottle();
+      this.checkCollisionWithCoins();
       this.checkCollisionsBottleEnemies();
       this.checkThrowObject();
-    }, 200);
+    }, 1000 / 60);
   }
 
   checkThrowObject() {
@@ -56,41 +56,53 @@ class World {
       if (this.character.isColliding(enemy)) {
         if (enemy instanceof Chicken) {
           this.isEnemyDead(this.level.enemies, i, 2 * lostEnergy);
-        }
-        if (enemy instanceof SmallChicken) {
+        } else if (enemy instanceof SmallChicken) {
           this.isEnemyDead(this.level.enemies, i, lostEnergy);
-        }
-        if (enemy instanceof Endboss) {
+        } else if (enemy instanceof Endboss) {
           this.character.hit(100);
           this.statusBar.setPercentage(this.character.energy);
-        }
-        if (enemy instanceof Bottle) {
-          this.remainingBottles += 21;
-          this.statusBottle.setPercentage(this.remainingBottles);
-          object.splice(i, 1);
-        }
-        if (enemy instanceof Coin) {
-          this.remainingCoins += 21;
-          this.statusCoin.setPercentage(this.remainingCoins);
-          object.splice(i, 1);
         }
       }
     });
   }
 
+  checkCollisionWithCoins() {
+    this.level.coins.forEach((coin, i) => {
+      if (this.character.isColliding(coin)) {
+        this.remainingCoins += 21;
+        this.statusCoin.setPercentage(this.remainingCoins);
+        this.level.coins.splice(i, 1);
+      }
+    });
+  }
+  checkCollisionWithBottle() {
+    this.level.bottles.forEach((bottle, i) => {
+      if (this.character.isColliding(bottle)) {
+        this.remainingBottles += 21;
+        this.statusBottle.setPercentage(this.remainingBottles);
+        this.level.bottles.splice(i, 1);
+      }
+    });
+  }
+
   isEnemyDead(object, removeEnemyIndex, lostEnergy) {
-    if (!this.character.isAboveGround()) {
+    if (this.character.hasWalkOnEnemy()) {
+      object[removeEnemyIndex].energy = 0;
+      if (object instanceof Chicken) setTimeout(() => object.splice(removeEnemyIndex, 1), 500);
+      // if (object instanceof SmallChicken) setTimeout(() => object.splice(removeEnemyIndex, 1), 500);
+      // object.splice(removeEnemyIndex, 1);
+      // if (object instanceof SmallChicken) this.character.jump();
+      if (object instanceof SmallChicken) {
+        if (!object.isAboveGround()) {
+          this.character.jump();
+          setTimeout(() => object.splice(removeEnemyIndex, 1), 500);
+        } else if (object.isAboveGround()) {
+          setTimeout(() => object.splice(removeEnemyIndex, 1), 0);
+        }
+      }
+    } else {
       this.character.hit(lostEnergy);
       this.statusBar.setPercentage(this.character.energy);
-    }
-    if (this.character.hasWalkOnEnemy()) {
-      object.splice(removeEnemyIndex, 1);
-      if (!(object instanceof SmallChicken)) {
-        this.character.jump();
-      }
-      if (object instanceof SmallChicken && !object.isAboveGround()) {
-        this.character.jump();
-      }
     }
   }
 
@@ -157,7 +169,7 @@ class World {
     }
     mov.draw(this.ctx);
 
-    mov.drawFrame(this.ctx);
+    // mov.drawFrame(this.ctx);
     if (mov.otherDirection) {
       this.flipImageBack(mov);
     }

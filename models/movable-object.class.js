@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
   otherDirection = false;
   chickens_life = 1;
   speedY = 0;
-  acceleration = 4;
+  acceleration = 2.5;
   energy = 100;
   lastHit = 0;
   endbossHealth = 10;
@@ -12,15 +12,12 @@ class MovableObject extends DrawableObject {
   offset_xMinus = 0;
   offset_yPlus = 0;
   offset_yMinus = 0;
-  jump_sound = new Audio("audios/jump.mp3");
 
   applyGravity() {
     setInterval(() => {
       if (this.hasJump()) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
-        if (this.y > 169 && this instanceof Character) this.y = 169;
-        if (this.y > 396 && this instanceof SmallChicken) this.y = 396;
       }
     }, 25);
   }
@@ -29,23 +26,18 @@ class MovableObject extends DrawableObject {
     return this.isAboveGround() || this.speedY > 0;
   }
   hasWalkOnEnemy() {
-    return this.isAboveGround() && this.speedY < 0;
+    return this.isAboveGround() && this.speedY <= 0;
   }
 
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
     } else if (this instanceof SmallChicken) {
-      return this.y <= 396;
+      return this.y <= 370;
     } else {
-      return this.y <= 160;
+      return this.y <= 220;
     }
   }
-
-  // Collision check
-  // iscolliding(mov, xplus = 0, yplus = 0) {
-  //   return this.x + this.width > mov.x + xplus && this.y + this.height > mov.y + yplus && this.x < mov.x && this.y < mov.y + mov.height;
-  // }
 
   isColliding(mo) {
     return (
@@ -74,25 +66,12 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  chickenHit() {
-    this.chickens_life -= 1;
-    if (this.chickens_life <= 0) {
-      this.chickens_life = 0;
-    } else {
-      this.lastHit = new Date().getTime();
-    }
-  }
-
-  isChickenDead() {
-    return this.chickens_life === 0;
-  }
-
   isEndbossDead() {
     return this.endbossHealth === 0;
   }
 
   isDead() {
-    return this.energy === 0;
+    return this.energy <= 0;
   }
   isHurt(time) {
     let timepassed = new Date().getTime() - this.lastHit;
@@ -120,7 +99,7 @@ class MovableObject extends DrawableObject {
   }
 
   jump() {
-    this.speedY = 30;
+    this.speedY = 25;
   }
   gameOver() {
     document.getElementById("game-over").classList.remove("d-none");

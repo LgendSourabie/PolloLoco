@@ -2,10 +2,8 @@ class Endboss extends MovableObject {
   width = 300;
   height = 348;
   energy = 10;
-  y = 135;
+  y = 91;
   endbossHealth = 10;
-
-  win_sound = new Audio("audios/win.mp3");
 
   offset_xPlus = 10;
   offset_xMinus = 10;
@@ -64,13 +62,15 @@ class Endboss extends MovableObject {
         setTimeout(() => {
           for (let i = 1; i < 9999; i++) window.clearInterval(i);
         }, 1000 / 60);
-        this.win_sound.play();
+        WIN_SOUND.play();
         this.showGameOverWinScreen();
-      } else if (this.endbossHealth !== 10) {
+      } else if (this.endbossHealth < 10 && this.endbossHealth >= 6) {
         this.playAnimation(this.IMAGES_WALKING);
         setInterval(() => {
           this.moveLeft();
         }, 1000 / 60);
+      } else if (this.endbossHealth <= 5) {
+        this.playAnimation(this.IMAGES_HURT);
       } else {
         this.playAnimation(this.IMAGES_ALERT);
       }

@@ -1,18 +1,13 @@
 class Character extends MovableObject {
-  width = 200;
-  height = 300;
-  // y = 168;
-  y = 1;
+  width = 100;
+  height = 200;
+
   speed = 10;
   world;
-
-  pepe_dead_sound = new Audio("audios/pepe_dead.mp3");
-  walking_sound = new Audio("audios/running.mp3");
-
-  offset_xPlus = 10;
-  offset_xMinus = 10;
-  offset_yPlus = 10;
-  offset_yMinus = 10;
+  offset_xPlus = 35;
+  offset_xMinus = 35;
+  offset_yPlus = 110;
+  offset_yMinus = 5;
 
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
@@ -85,24 +80,23 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      this.walking_sound.pause();
+      PEPE_WALKING_SOUND.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
-        this.walking_sound.play();
-        document.getElementById("volume-high").addEventListener("click", () => (this.walking_sound.muted = true));
+        PEPE_WALKING_SOUND.play();
+        document.getElementById("volume-high").addEventListener("click", () => (PEPE_WALKING_SOUND.muted = true));
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
-        this.walking_sound.play();
-        document.getElementById("volume-high").addEventListener("click", () => (this.walking_sound.muted = true));
+        PEPE_WALKING_SOUND.play();
+        document.getElementById("volume-high").addEventListener("click", () => (PEPE_WALKING_SOUND.muted = true));
       }
 
       if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
         this.jump();
-        this.jump_sound.play();
-        document.getElementById("volume-high").addEventListener("click", () => (this.jump_sound.muted = true));
+        JUMP_SOUND.play();
       }
 
       this.world.camera_x = -this.x + 100;
@@ -111,7 +105,7 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-        this.pepe_dead_sound.play();
+        PEPE_DEAD_SOUND.play();
         setTimeout(() => {
           for (let i = 1; i < 9999; i++) window.clearInterval(i);
         }, 1000);
@@ -127,13 +121,7 @@ class Character extends MovableObject {
           this.playAnimation(this.IMAGES_WALKING);
         }
       }
-    }, 50);
-
-    // setInterval(() => {
-    //   document.getElementById("volume-high").addEventListener("click", () => {
-    //     this.jump_sound.muted ? (this.jump_sound.muted = false) : (this.jump_sound.muted = true);
-    //   });
-    // }, 100);
+    }, 200);
   }
 
   isThinking() {

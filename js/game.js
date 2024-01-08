@@ -1,3 +1,4 @@
+// canvas properties
 const buttonX = 500; // Button position and size
 const buttonY = 240;
 const buttonWidth = 200;
@@ -6,49 +7,105 @@ const fullScreenBtnX = 1125; // Button position and size
 const fullScreenBtnY = 515;
 const fullScreenBtnWidth = 50;
 const fullScreenBtnHeight = 30;
+
+// Audios and musics during the game
+
+const GAME_START_MUSIC = new Audio("./audios/music.mp3");
+const JUMP_SOUND = new Audio("audios/jump.mp3");
+const WIN_SOUND = new Audio("audios/win.mp3");
+const CHICKEN_SOUND = new Audio("audios/chicken.mp3");
+const PEPE_DEAD_SOUND = new Audio("audios/pepe_dead.mp3");
+const PEPE_WALKING_SOUND = new Audio("audios/running.mp3");
+
+// HTML elements and variables
 let canvas;
 let btnFullscreen = document.getElementById("btn-fullscreen");
+let volumeBtn = document.getElementById("volume-high");
 let infoPage = document.getElementById("info-container");
 let gameInfo = document.getElementById("game-info");
 let gameHelp = document.getElementById("help");
-gameStartMusic = new Audio("./audios/music.mp3");
 let keyboard = new Keyboard();
-// let gameStartMusic = new Audio("../audios/music.mp3");
 let world;
 let isRunning = false;
+let isSoundOn = true;
 
-// function startBackgroundMusic() {
-//   gameStartMusic.play();
-//   gameStartMusic.muted = true;
-// }
-// document.addEventListener("click", startBackgroundMusic());
-
-// function toggleVolume() {
-//   if (gameStartMusic.muted) {
-//     gameStartMusic.muted = false;
-//   } else {
-//     gameStartMusic.muted = true;
-//   }
-// }
+/**
+ * enable or disable the fullscreen option when the fullscreen icon (button) is clicked
+ */
 
 btnFullscreen.addEventListener("click", () => {
   fullScreen();
 });
+
+/**
+ * enable or disable all volumes  when the volume button is clicked
+ */
+volumeBtn.addEventListener("click", () => {
+  toggleVolumeBtn();
+  if (isSoundOn) disableSound();
+  else enableSound();
+});
+
+/**
+ * toggle the volume Icon between volume allowed and mute
+ */
+
+function toggleVolumeBtn() {
+  let volumeIcon = document.getElementById("volume-icon");
+  let currentVolumeBtn = volumeIcon.getAttribute("src");
+  if (currentVolumeBtn === "./icons/volume-high.svg") volumeIcon.setAttribute("src", "./icons/volume-xmark.svg");
+  else volumeIcon.setAttribute("src", "./icons/volume-high.svg");
+}
+
+function enableSound() {
+  GAME_START_MUSIC.volume = 0.25;
+  JUMP_SOUND.volume = 0.25;
+  WIN_SOUND.volume = 0.25;
+  CHICKEN_SOUND.volume = 0.25;
+  PEPE_DEAD_SOUND.volume = 0.25;
+  PEPE_WALKING_SOUND.volume = 0.25;
+  isSoundOn = true;
+}
+function disableSound() {
+  GAME_START_MUSIC.volume = 0;
+  JUMP_SOUND.volume = 0;
+  WIN_SOUND.volume = 0;
+  CHICKEN_SOUND.volume = 0;
+  PEPE_DEAD_SOUND.volume = 0;
+  PEPE_WALKING_SOUND.volume = 0;
+  isSoundOn = false;
+}
 
 function fullScreen() {
   main = document.getElementById("main");
   canvas = document.getElementById("canvas");
   canvas.style.width = "100%";
   canvas.style.height = "100%";
+  toggleFullScreen(main);
+}
 
+/**
+ *
+ * @param {string} main - id of an html element which need to be shown in fullscreen
+ */
+
+function fullScreenDisplay(main) {
   if (main.requestFullscreen) {
-    return main.requestFullscreen();
+    return main.requestFullscreen(); //Chrome
   } else if (main.mozRequestFullScreen) {
-    return main.mozRequestFullScreen();
+    return main.mozRequestFullScreen(); // mozilla
   } else if (main.webkitRequestFullscreen) {
-    return main.webkitRequestFullscreen();
+    return main.webkitRequestFullscreen(); // iOS Safari
   } else if (main.msRequestFullscreen) {
-    return main.msRequestFullscreen();
+    return main.msRequestFullscreen(); // for IE11
+  }
+}
+
+function toggleFullScreen(main) {
+  if (!document.fullscreenElement) {
+    fullScreenDisplay(main);
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
   }
 }
 
@@ -56,8 +113,6 @@ function init() {
   initLevel();
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
-
-  // console.log("my character is", world.character);
 }
 
 window.addEventListener("keydown", function (e) {
@@ -86,7 +141,6 @@ window.addEventListener("keydown", function (e) {
 });
 
 window.addEventListener("keyup", function (e) {
-  // console.log(e);
   if (e.key === "ArrowRight") {
     keyboard.RIGHT = false;
   }
@@ -105,7 +159,6 @@ window.addEventListener("keyup", function (e) {
   if (e.key === "d") {
     keyboard.D = false;
   }
-  // console.log(e);
 });
 
 function enableDisplay() {
@@ -121,10 +174,19 @@ function disableDisplay() {
 
 function playGame() {
   isRunning = true;
-  enableDisplay();
-  disableDisplay();
+
   init();
   addEventListenersMobile();
+  enableDisplay();
+  disableDisplay();
+  volumeBtn.classList.remove("d-none");
+  playMusic();
+}
+
+function playMusic() {
+  GAME_START_MUSIC.volume = 0.25;
+  GAME_START_MUSIC.play();
+  GAME_START_MUSIC.loop = true;
 }
 
 function tryAgain() {
@@ -223,13 +285,12 @@ function renderGameHelp() {
 function closeInfoPage() {
   document.getElementById("start-screen").classList.remove("d-none");
   document.getElementById("btn-play").classList.remove("d-none");
-  btnFullscreen.classList.remove("d-none");
   infoPage.classList.add("d-none");
 }
 
 function turnScreenOrientation() {
   if (window.mobileCheck()) {
-    fullScreen();
+    // fullScreen();
     document.getElementById("arrow-left").classList.remove("d-none");
     document.getElementById("arrow-right").classList.remove("d-none");
     document.getElementById("arrow-up").classList.remove("d-none");
