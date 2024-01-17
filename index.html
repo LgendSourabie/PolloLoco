@@ -35,21 +35,23 @@
     <title>El Pollo Loco</title>
   </head>
   <body id="body" class="landscape">
-    <h1>
-      <button id="game-info" class="help-btn" onclick="renderGameInfos()">i</button>
-      <button id="help" class="help-btn-1" onclick="renderGameHelp()">?</button>
-      El Pollo loco
-    </h1>
+    <h1 id="header">El Pollo loco</h1>
     <main id="main">
       <canvas class="canvas d-none" id="canvas" width="720" height="480"></canvas>
       <img id="start-screen" class="startscreen" src="./img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
       <!-- // button group to play the game on mobile devices -->
+      <div id="btn-grp-game-info">
+        <button id="help" class="help-btn-1 help-resp" onclick="renderGameHelp()">?</button>
+        <button id="game-info" class="help-btn info-resp" onclick="renderGameInfos()">i</button>
+      </div>
       <button id="btn-play" class="btn btn-play" onclick="playGame()">Play Game</button>
       <button id="btn-try-again" class="btn btn-play btn-try-again d-none" onclick="tryAgain()">Try Again</button>
-      <button id="arrow-left" class="btn btn-secondary btn-left d-none"><img src="./icons/arrow-left.svg" alt="Left" /></button>
-      <button id="arrow-right" class="btn btn-secondary btn-right d-none"><img src="./icons/arrow-right.svg" alt="Right" /></button>
-      <button id="arrow-up" class="btn btn-secondary btn-up d-none"><img src="./icons/arrow-up.svg" alt="Up" /></button>
-      <button id="throw" class="btn btn-secondary btn-throw d-none"><img src="./icons/circle.svg" alt="Throw" /></button>
+      <div class="btn-mobile-play">
+        <button id="arrow-left" class="btn btn-secondary btn-left d-none"><img src="./icons/arrow-left.svg" alt="Left" /></button>
+        <button id="arrow-right" class="btn btn-secondary btn-right d-none"><img src="./icons/arrow-right.svg" alt="Right" /></button>
+        <button id="arrow-up" class="btn btn-secondary btn-up d-none"><img src="./icons/arrow-up.svg" alt="Up" /></button>
+        <button id="throw" class="btn btn-secondary btn-throw d-none"><img src="./icons/circle.svg" alt="Throw" /></button>
+      </div>
       <button id="volume-high" class="btn btn-volume d-none"><img id="volume-icon" src="./icons/volume-high.svg" alt="Volume" /></button>
       <button id="btn-fullscreen" class="btn btn-fullscreen d-none"><img src="./icons/maximize.svg" alt="Fullscreen" /></button>
       <!-- // Container for info about how to play the game -->

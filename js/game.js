@@ -1,13 +1,3 @@
-// canvas properties
-const buttonX = 500; // Button position and size
-const buttonY = 240;
-const buttonWidth = 200;
-const buttonHeight = 80;
-const fullScreenBtnX = 1125; // Button position and size
-const fullScreenBtnY = 515;
-const fullScreenBtnWidth = 50;
-const fullScreenBtnHeight = 30;
-
 // Audios and musics during the game
 
 const GAME_START_MUSIC = new Audio("./audios/music.mp3");
@@ -26,8 +16,8 @@ let gameInfo = document.getElementById("game-info");
 let gameHelp = document.getElementById("help");
 let keyboard = new Keyboard();
 let world;
-let isRunning = false;
-let isSoundOn = true;
+let isRunning = false; // wether the game is running or not (startscreen) - used to control the mobile device options
+let isSoundOn = true; // check is sound is on or off
 
 /**
  * enable or disable the fullscreen option when the fullscreen icon (button) is clicked
@@ -57,6 +47,9 @@ function toggleVolumeBtn() {
   else volumeIcon.setAttribute("src", "./icons/volume-high.svg");
 }
 
+/**
+ * enable sound by using the volume property
+ */
 function enableSound() {
   GAME_START_MUSIC.volume = 0.25;
   JUMP_SOUND.volume = 0.25;
@@ -66,6 +59,11 @@ function enableSound() {
   PEPE_WALKING_SOUND.volume = 0.25;
   isSoundOn = true;
 }
+
+/**
+ * Sounds are virtually disable by reducing the volume to zero
+ */
+
 function disableSound() {
   GAME_START_MUSIC.volume = 0;
   JUMP_SOUND.volume = 0;
@@ -75,6 +73,10 @@ function disableSound() {
   PEPE_WALKING_SOUND.volume = 0;
   isSoundOn = false;
 }
+
+/**
+ * enter full screen modus
+ */
 
 function fullScreen() {
   main = document.getElementById("main");
@@ -86,7 +88,7 @@ function fullScreen() {
 
 /**
  *
- * @param {string} main - id of an html element which need to be shown in fullscreen
+ * @param {html-element-ID} main - id of an html element which need to be shown in fullscreen
  */
 
 function fullScreenDisplay(main) {
@@ -101,6 +103,11 @@ function fullScreenDisplay(main) {
   }
 }
 
+/**
+ *
+ * @param {ID of html element} main - id of main container
+ */
+
 function toggleFullScreen(main) {
   if (!document.fullscreenElement) {
     fullScreenDisplay(main);
@@ -109,11 +116,19 @@ function toggleFullScreen(main) {
   }
 }
 
+/**
+ * initialization of the game when page loads
+ */
+
 function init() {
   initLevel();
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 }
+
+/**
+ * allow playing the game using keys - when specified keys are pressed => event are listened and suitable responses given
+ */
 
 window.addEventListener("keydown", function (e) {
   canvas = document.getElementById("canvas");
@@ -167,6 +182,7 @@ function enableDisplay() {
   document.getElementById("game-info").classList.add("d-none");
   document.getElementById("help").classList.add("d-none");
 }
+
 function disableDisplay() {
   document.getElementById("canvas").classList.remove("d-none");
   btnFullscreen.classList.remove("d-none");
@@ -180,6 +196,7 @@ function playGame() {
   enableDisplay();
   disableDisplay();
   volumeBtn.classList.remove("d-none");
+  document.getElementById("btn-grp-game-info").style.display = "none";
   playMusic();
 }
 
@@ -235,35 +252,35 @@ function addEventListenersMobile() {
 }
 
 const markupInfo = `
-<h2>What is El Pollo loco?</h2>
-<button class="btn-fi  btn-third btn-close" onclick="closeInfoPage()"><img src="./icons/xmark-solid.svg" alt="Close" /></button>
-<span class="big-letter">W</span>elcome to "El Pollo Loco," a thrilling adventure set in the scorching desert of Spain! Take control of our fearless protagonist, Pepe, as he navigates the arid landscape teeming with feisty foes—small chickens, standard chickens, and formidable Enboss chickens. Your mission is to guide Pepe through this poultry peril, armed with the ability to jump on or throw bottles at the smaller chickens, while the Enboss requires a strategic barrage of bottles to defeat. As Pepe ventures through the desert, make sure to collect valuable bottles and coins strewn along the way to enhance your chances of survival. Master the art of timing and precision to triumph over the clucking chaos that awaits you in "El Pollo Loco"! Are you ready to prove yourself against the relentless chicken onslaught? May the desert winds guide you, adventurer!
+                    <h2>What is El Pollo loco?</h2>
+                    <button class="btn-fi  btn-third btn-close" onclick="closeInfoPage()"><img src="./icons/xmark-solid.svg" alt="Close" /></button>
+                    <span class="big-letter">W</span>elcome to "El Pollo Loco," a thrilling adventure set in the scorching desert of Spain! Take control of our fearless protagonist, Pepe, as he navigates the arid landscape teeming with feisty foes—small chickens, standard chickens, and formidable Enboss chickens. Your mission is to guide Pepe through this poultry peril, armed with the ability to jump on or throw bottles at the smaller chickens, while the Enboss requires a strategic barrage of bottles to defeat. As Pepe ventures through the desert, make sure to collect valuable bottles and coins strewn along the way to enhance your chances of survival. Master the art of timing and precision to triumph over the clucking chaos that awaits you in "El Pollo Loco"! Are you ready to prove yourself against the relentless chicken onslaught? May the desert winds guide you, adventurer!
   `;
+
 const markupHelp = `
+                    <h2>Game Instructions</h2>
+                    <button class="btn-fi  btn-third btn-close" onclick="closeInfoPage()"><img src="./icons/xmark-solid.svg" alt="Close" /></button>
 
-<h2>Game Instructions</h2>
-<button class="btn-fi  btn-third btn-close" onclick="closeInfoPage()"><img src="./icons/xmark-solid.svg" alt="Close" /></button>
-
-<div>
-<button id="arrow-left" class="btn-fi btn-third "><img src="./icons/arrow-left.svg" alt="Left" /></button>
-<p>Move backward and navigate through the challenging desert terrain. </p>
-</div>
-<div>
-<button id="arrow-right" class="btn-fi  btn-third "><img src="./icons/arrow-right.svg" alt="Right" /></button>
-<p>Forge ahead, overcoming obstacles and confronting the relentless chicken enemies.</p>
-</div>
-<div>
-<button id="arrow-up" class="btn-fi  btn-third "><img src="./icons/arrow-up.svg" alt="Up" /></button>
-<p>Take a leap into the air with a skillful jump to avoid chicken attacks or reach higher platforms. </p>
-</div>
-<div>
-<button id="throw" class="btn-fi  btn-third-fi "><img src="./icons/circle.svg" alt="Throw" /></button>
-<p>Equip Pepe with the ability to defend himself by hurling bottles at the oncoming chicken adversaries. Use this strategic move to eliminate both small chickens and the formidable Enboss. </p>
-</div>
-<div>
-<button id="btn-fullscreen" class="btn-fi btn-full-rect"><img src="./icons/maximize.svg" alt="Fullscreen" /></button>
-<p>Additionally, for an immersive gaming experience, use the Square Button to toggle fullscreen mode. Immerse yourself fully in the vibrant and challenging world of "El Pollo Loco" as you navigate the desert landscape, battle chickens, and collect valuable items. Enjoy the game in all its glory with the square button, and may your journey through the desert be both thrilling and visually captivating! </p>
-</div>
+                    <div>
+                    <button id="arrow-left" class="btn-fi btn-third "><img src="./icons/arrow-left.svg" alt="Left" /></button>
+                    <p>Move backward and navigate through the challenging desert terrain. </p>
+                    </div>
+                    <div>
+                    <button id="arrow-right" class="btn-fi  btn-third "><img src="./icons/arrow-right.svg" alt="Right" /></button>
+                    <p>Forge ahead, overcoming obstacles and confronting the relentless chicken enemies.</p>
+                    </div>
+                    <div>
+                    <button id="arrow-up" class="btn-fi  btn-third "><img src="./icons/arrow-up.svg" alt="Up" /></button>
+                    <p>Take a leap into the air with a skillful jump to avoid chicken attacks or reach higher platforms. </p>
+                    </div>
+                    <div>
+                    <button id="throw" class="btn-fi  btn-third-fi "><img src="./icons/circle.svg" alt="Throw" /></button>
+                    <p>Equip Pepe with the ability to defend himself by hurling bottles at the oncoming chicken adversaries. Use this strategic move to eliminate both small chickens and the formidable Enboss. </p>
+                    </div>
+                    <div>
+                    <button id="btn-fullscreen" class="btn-fi btn-full-rect"><img src="./icons/maximize.svg" alt="Fullscreen" /></button>
+                    <p>Additionally, for an immersive gaming experience, use the Square Button to toggle fullscreen mode. Immerse yourself fully in the vibrant and challenging world of "El Pollo Loco" as you navigate the desert landscape, battle chickens, and collect valuable items. Enjoy the game in all its glory with the square button, and may your journey through the desert be both thrilling and visually captivating! </p>
+                    </div>
   `;
 
 function renderGameInfos() {
@@ -290,12 +307,22 @@ function closeInfoPage() {
 
 function turnScreenOrientation() {
   if (window.mobileCheck()) {
-    // fullScreen();
+    document.getElementById("main").style.border = "unset";
+    document.getElementById("main").style.width = "unset";
+    document.getElementById("header").style.display = "none";
+    document.querySelector("body").style.margin = "0";
+
     document.getElementById("arrow-left").classList.remove("d-none");
     document.getElementById("arrow-right").classList.remove("d-none");
     document.getElementById("arrow-up").classList.remove("d-none");
     document.getElementById("throw").classList.remove("d-none");
+    document.querySelector(".help-resp").classList.remove("d-none");
+    document.querySelector(".info-resp").classList.remove("d-none");
   } else {
+    document.getElementById("main").style.border = "12px solid rgba(255, 255, 255, 0.8)";
+    document.getElementById("header").style.display = "block";
+    document.querySelector("body").style.margin = "8px";
+
     document.getElementById("arrow-left").classList.add("d-none");
     document.getElementById("arrow-right").classList.add("d-none");
     document.getElementById("arrow-up").classList.add("d-none");

@@ -1,9 +1,10 @@
 class Character extends MovableObject {
   width = 100;
   height = 200;
-
   speed = 10;
   world;
+
+  // these parameters allow an accurate capture of the collision of  character with objects or enemies
   offset_xPlus = 35;
   offset_xMinus = 35;
   offset_yPlus = 110;
@@ -17,6 +18,7 @@ class Character extends MovableObject {
     "img/2_character_pepe/2_walk/W-25.png",
     "img/2_character_pepe/2_walk/W-26.png",
   ];
+
   IMAGES_SHORT_IDLE = [
     "img/2_character_pepe/1_idle/idle/I-1.png",
     "img/2_character_pepe/1_idle/idle/I-2.png",
@@ -29,6 +31,7 @@ class Character extends MovableObject {
     "img/2_character_pepe/1_idle/idle/I-9.png",
     "img/2_character_pepe/1_idle/idle/I-10.png",
   ];
+
   IMAGES_LONG_IDLE = [
     "img/2_character_pepe/1_idle/long_idle/I-11.png",
     "img/2_character_pepe/1_idle/long_idle/I-12.png",
@@ -73,7 +76,6 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
-
     this.animate();
     this.applyGravity();
   }

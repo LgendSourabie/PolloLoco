@@ -1,7 +1,9 @@
 class Bottle extends DrawableObject {
   width = 100;
   height = 80;
-  index = Math.trunc(Math.random() * 2);
+  index = Math.trunc(Math.random() * 2); // random index for a random selection of image in the IMAGES (at line 11) array
+
+  // these parameters allow an accurate capture of the collision of  character with objects or enemies
 
   offset_xPlus = 15;
   offset_xMinus = 20;
@@ -13,6 +15,7 @@ class Bottle extends DrawableObject {
    *
    * @param {integer} x : position of the bottle on the ground
    */
+
   constructor(x) {
     super().loadImage(this.IMAGES[this.index]);
     this.x = x + Math.random() * 2000;

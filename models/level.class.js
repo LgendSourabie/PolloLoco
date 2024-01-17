@@ -3,7 +3,6 @@ class Level {
   clouds;
   backgroundObjects;
   bottles;
-  // level_end_x = 1890;
   level_end_x = 5600;
   /**
    *Represents the objects in the world (here desert)

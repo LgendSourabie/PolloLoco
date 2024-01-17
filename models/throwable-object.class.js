@@ -17,16 +17,13 @@ class ThrowableObject extends MovableObject {
   ];
 
   constructor(x, y, otherDirection) {
-    // super();
     super().loadImage("img/7_statusbars/3_icons/icon_salsa_bottle.png");
     this.x = x;
     this.y = y;
     this.width = 60;
     this.height = 60;
-    // this.loadImage();
     this.otherDirection = otherDirection;
     this.loadImages(this.IMAGES_ROTATION);
-    // this.loadImages(this.IMAGES_SPLASH);
     this.throw();
   }
 
@@ -39,7 +36,7 @@ class ThrowableObject extends MovableObject {
     setInterval(() => {
       this.x += 14;
       this.animate();
-    }, 8);
+    }, 12);
   }
 
   animate() {

@@ -25,6 +25,7 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.bottlerun();
   }
 
   setWorld() {
@@ -33,13 +34,17 @@ class World {
 
   run() {
     setInterval(() => {
-      // this.checkCollisions();
       this.checkCollisions(this.level.enemies, 0.5);
       this.checkCollisionWithBottle();
       this.checkCollisionWithCoins();
-      this.checkCollisionsBottleEnemies();
-      this.checkThrowObject();
     }, 1000 / 60);
+  }
+
+  bottlerun() {
+    setInterval(() => {
+      this.checkThrowObject();
+      this.checkCollisionsBottleEnemies();
+    }, 200);
   }
 
   checkThrowObject() {
@@ -87,19 +92,12 @@ class World {
 
   isEnemyDead(object, removeEnemyIndex, lostEnergy) {
     if (this.character.hasWalkOnEnemy()) {
-      object[removeEnemyIndex].energy = 0;
-      if (object instanceof Chicken) setTimeout(() => object.splice(removeEnemyIndex, 1), 500);
-      // if (object instanceof SmallChicken) setTimeout(() => object.splice(removeEnemyIndex, 1), 500);
-      // object.splice(removeEnemyIndex, 1);
-      // if (object instanceof SmallChicken) this.character.jump();
-      if (object instanceof SmallChicken) {
-        if (!object.isAboveGround()) {
-          this.character.jump();
-          setTimeout(() => object.splice(removeEnemyIndex, 1), 500);
-        } else if (object.isAboveGround()) {
-          setTimeout(() => object.splice(removeEnemyIndex, 1), 0);
-        }
+      if (object instanceof SmallChicken && !object.isAboveGround()) {
+        this.character.jump();
       }
+      object[removeEnemyIndex].energy = 0;
+      object.splice(removeEnemyIndex, 1);
+      // setTimeout(() => object.splice(removeEnemyIndex, 1), 500);
     } else {
       this.character.hit(lostEnergy);
       this.statusBar.setPercentage(this.character.energy);
@@ -110,14 +108,18 @@ class World {
     return bottle.x + bottle.width >= enemies.x && bottle.x <= enemies.x + enemies.width && bottle.y + bottle.height >= enemies.y && bottle.y <= enemies.y + enemies.height;
   }
 
+  /**
+   * check if the thrown bottles collide with an enemy
+   */
   checkCollisionsBottleEnemies() {
     this.throwableObjects.forEach((bottle) => {
       this.level.enemies.forEach((enemy, i) => {
         if (this.collissionBottleChicken(bottle, enemy)) {
           if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
-            this.level.enemies.splice(i, 1);
+            this.level.enemies.splice(i, 1); // if the collision happen with a either a small or a normal chicken then their muss be dead
           }
           if (enemy instanceof Endboss) {
+            // for the endboss however, the number of collision is needed until its energy get to null
             this.endboss.endbossHit();
             this.statusEndboss.setPercentage(this.endboss.endbossHealth);
           }
@@ -125,6 +127,10 @@ class World {
       });
     });
   }
+
+  /**
+   * This function draw all the objects in canvas. Every time an object has to be added to the canvas this wil happen by the mean of this function
+   */
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -157,11 +163,24 @@ class World {
     });
   }
 
+  /**
+   * This function draw all the objects in canvas. Every time an object in the an array of objects
+   * has to be added to the canvas this wil happen by the mean of this function
+   */
+
   addObjectToMap(objects) {
     objects.forEach((obj) => {
       this.addToMap(obj);
     });
   }
+
+  /**
+   * This function also draw  objects in canvas. However, the object has to be a single object but no an element of array object
+   */
+  /**
+   *
+   * @param {object} mov - refers to the movable objects
+   */
 
   addToMap(mov) {
     if (mov.otherDirection) {
