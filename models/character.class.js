@@ -3,8 +3,12 @@ class Character extends MovableObject {
   height = 200;
   speed = 10;
   world;
+  lastMovePepe = 0;
 
-  // these parameters allow an accurate capture of the collision of  character with objects or enemies
+  /**
+   * these parameters allow an accurate capture of the collision of  character with objects or enemies
+   */
+
   offset_xPlus = 35;
   offset_xMinus = 35;
   offset_yPlus = 110;
@@ -69,68 +73,116 @@ class Character extends MovableObject {
   ];
   IMAGES_HURT = ["img/2_character_pepe/4_hurt/H-41.png", "img/2_character_pepe/4_hurt/H-42.png", "img/2_character_pepe/4_hurt/H-43.png"];
 
+  /**
+   * loads images when the character is added to canvas
+   */
   constructor() {
     super().loadImage("img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_IDLE);
+    this.loadImages(this.IMAGES_LONG_IDLE);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
     this.animate();
     this.applyGravity();
   }
 
+  /**
+   * play image animations according to the current situation
+   */
   animate() {
     setInterval(() => {
       PEPE_WALKING_SOUND.pause();
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+      if (this.isKeyRightPressed()) {
         this.moveRight();
         this.otherDirection = false;
         PEPE_WALKING_SOUND.play();
-        document.getElementById("volume-high").addEventListener("click", () => (PEPE_WALKING_SOUND.muted = true));
       }
-      if (this.world.keyboard.LEFT && this.x > 0) {
+      if (this.isKeyLeftPressed()) {
         this.moveLeft();
         this.otherDirection = true;
         PEPE_WALKING_SOUND.play();
-        document.getElementById("volume-high").addEventListener("click", () => (PEPE_WALKING_SOUND.muted = true));
       }
-
-      if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
+      if (this.isKeyUPPressed() && !this.isAboveGround()) {
         this.jump();
         JUMP_SOUND.play();
       }
 
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
+    this.allCharacterAnimation();
+  }
 
+  /**
+   * play animation conditionally every 0.2 second
+   */
+  allCharacterAnimation() {
     setInterval(() => {
       if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-        PEPE_DEAD_SOUND.play();
-        setTimeout(() => {
-          for (let i = 1; i < 9999; i++) window.clearInterval(i);
-        }, 1000);
-        this.showGameOverLostScreen();
+        this.lostGame();
+        this.showGameLostScreen();
       } else if (this.isHurt(1)) {
         this.playAnimation(this.IMAGES_HURT);
+        this.lastMovePepe = new Date().getTime();
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
-      } else if (this.isThinking()) {
-        this.playAnimation(this.IMAGES_IDLE);
-      } else {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          this.playAnimation(this.IMAGES_WALKING);
-        }
+      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        this.playAnimation(this.IMAGES_WALKING);
+        this.lastMovePepe = new Date().getTime();
+      } else if (this.isIdling()) {
+        this.playAnimation(this.IMAGES_LONG_IDLE);
       }
     }, 200);
   }
+
+  /**
+   * lost game when character is dead
+   */
+  lostGame() {
+    this.playAnimation(this.IMAGES_DEAD);
+    PEPE_DEAD_SOUND.play();
+    setTimeout(() => {
+      for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    }, 1000);
+  }
+
+  /**
+   * check if key RIGHT is pressed
+   */
+  isKeyRightPressed() {
+    return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+  }
+  /**
+   * check if key LEFT is pressed
+   */
+  isKeyLeftPressed() {
+    return this.world.keyboard.LEFT && this.x > 0;
+  }
+
+  isKeyUPPressed() {
+    return this.world.keyboard.SPACE || this.world.keyboard.UP;
+  }
+
+  /**
+   * check if the character is thinking about how to get out of the dessert without being killed
+   * @returns boolean - true or false
+   */
 
   isThinking() {
     return !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.UP && !this.world.keyboard.D && !this.world.keyboard.SPACE;
   }
 
-  showGameOverLostScreen() {
+  isIdling() {
+    let timepassed = new Date().getTime() - this.lastMovePepe;
+    timepassed = timepassed / 2000;
+    return timepassed > 1.5;
+  }
+
+  /**
+   * Show the end screen when character is dead
+   */
+  showGameLostScreen() {
     document.getElementById("game-over-lost").classList.remove("d-none");
     document.getElementById("btn-try-again").classList.remove("d-none");
   }

@@ -4,7 +4,9 @@ class SmallChicken extends MovableObject {
   y = 370;
   world;
 
-  // these parameters allow an accurate capture of the collision of  character with objects or enemies
+  /**
+   * these parameters allow an accurate capture of the collision of  character with objects or enemies
+   */
   offset_xPlus = 0;
   offset_xMinus = 0;
   offset_yPlus = 0;
@@ -27,17 +29,21 @@ class SmallChicken extends MovableObject {
     this.speed = 0.15 + Math.random() * 0.25; // speed of small chicken when moving towards the character
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
-
     this.animate();
     this.applyGravity();
   }
 
+  /**
+   * animates small chicken move left and plays animation
+   */
   animate() {
     setInterval(() => {
       this.moveLeft();
     }, 1000 / 60);
 
-    // small chicken jump every 4 s to make the game more challenging
+    /**
+     * small chicken jump every 4 s to make the game more challenging
+     */
     setInterval(() => {
       if (!this.isDead()) this.jump();
     }, 4000);

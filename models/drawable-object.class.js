@@ -7,15 +7,27 @@ class DrawableObject {
   height = 150;
   width = 100;
 
+  /**
+   * load single image to be displayed the canvas
+   * @param {string} path - of single image to be drawn
+   */
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
   }
 
+  /**
+   * draw images in the canvas according to coordinates
+   * @param {object} ctx - 2D context object
+   */
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
+  /**
+   * load images in an array to be displayed in the canvas
+   * @param {array} arr - of images of status bar to be displayed according to percentage
+   */
   loadImages(arr) {
     arr.forEach((path) => {
       let img = new Image();
@@ -23,6 +35,11 @@ class DrawableObject {
       this.imageCache[path] = img;
     });
   }
+
+  /**
+   *
+   * @returns the percentage to display on the status bar
+   */
 
   resolveImageIndexCoinBottle() {
     if (this.percentage >= 100) {

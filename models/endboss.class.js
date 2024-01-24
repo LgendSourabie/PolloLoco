@@ -5,6 +5,10 @@ class Endboss extends MovableObject {
   y = 91;
   endbossHealth = 10;
 
+  /**
+   * these parameters allow an accurate capture of the collision of  character with endboss
+   */
+
   offset_xPlus = 10;
   offset_xMinus = 10;
   offset_yPlus = 10;
@@ -44,6 +48,11 @@ class Endboss extends MovableObject {
   ];
 
   world;
+
+  /**
+   *
+   * @param {number} x - start position of the endboss to be added in the canvas
+   */
   constructor(x) {
     super().loadImage("img/4_enemie_boss_chicken/2_alert/G5.png");
     this.loadImages(this.IMAGES_WALKING);
@@ -55,9 +64,13 @@ class Endboss extends MovableObject {
     this.animate();
   }
 
+  /**
+   * play animation of the images of endboss
+   */
   animate() {
     setInterval(() => {
       if (this.isEndbossDead()) {
+        ENDBOSS_DEAD_SOUND.play();
         this.playAnimation(this.IMAGES_DEAD);
         setTimeout(() => {
           for (let i = 1; i < 9999; i++) window.clearInterval(i);
@@ -77,6 +90,9 @@ class Endboss extends MovableObject {
     }, 200);
   }
 
+  /**
+   * display the end game screen
+   */
   showGameOverWinScreen() {
     document.getElementById("game-over-win").classList.remove("d-none");
     document.getElementById("btn-try-again").classList.remove("d-none");

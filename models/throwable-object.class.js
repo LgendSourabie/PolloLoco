@@ -1,5 +1,4 @@
 class ThrowableObject extends MovableObject {
-  sound_bottle = new Audio("audios/throw.mp3");
   IMAGES_ROTATION = [
     "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
     "img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
@@ -16,6 +15,12 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
 
+  /**
+   *
+   * @param {number} x - x coordinate of the current bottle that is added to the game
+   * @param {number} y - y coordinate of the current bottle that is added to the game
+   * @param {*} otherDirection - specify the direction
+   */
   constructor(x, y, otherDirection) {
     super().loadImage("img/7_statusbars/3_icons/icon_salsa_bottle.png");
     this.x = x;
@@ -26,19 +31,24 @@ class ThrowableObject extends MovableObject {
     this.loadImages(this.IMAGES_ROTATION);
     this.throw();
   }
+  /**
+   * use to enable bottle throws
+   */
 
   throw() {
     this.speedY = 15;
     this.applyGravity();
     this.lastInteraction = new Date().getTime();
-    this.sound_bottle.play();
-    document.getElementById("volume-high").addEventListener("click", () => (this.sound_bottle.muted = true));
+    BOTTLE_SOUND.play();
     setInterval(() => {
       this.x += 14;
       this.animate();
     }, 12);
   }
 
+  /**
+   * play the animation of the bottle by going through all images
+   */
   animate() {
     setInterval(() => {
       this.playAnimation(this.IMAGES_ROTATION);

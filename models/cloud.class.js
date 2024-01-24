@@ -3,6 +3,11 @@ class Cloud extends MovableObject {
   width = 500;
   height = 250;
 
+  /**
+   *
+   * @param {string} image - path of the image to be displayed
+   * @param {number} x - start position of the image to be add in canvas
+   */
   constructor(image, x) {
     super().loadImage(image);
     this.x = x;
@@ -11,6 +16,9 @@ class Cloud extends MovableObject {
     this.animate();
   }
 
+  /**
+   *  play animation of clouds in the sky - moving to the left
+   */
   animate() {
     setInterval(() => {
       this.moveLeft();

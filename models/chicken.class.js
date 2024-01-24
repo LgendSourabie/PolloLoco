@@ -24,6 +24,9 @@ class Chicken extends MovableObject {
     this.animate();
   }
 
+  /**
+   * animate chicken by playing image animation and moving chicken to the left
+   */
   animate() {
     setInterval(() => {
       this.moveLeft();
@@ -31,10 +34,10 @@ class Chicken extends MovableObject {
 
     setInterval(() => {
       if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
+        this.loadImage(this.IMAGES_DEAD);
       } else {
         this.playAnimation(this.IMAGES_WALKING);
       }
-    }, 200);
+    }, 100);
   }
 }

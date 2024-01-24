@@ -75,7 +75,6 @@ h1 {
   left: 2vw;
 }
 .help-btn {
-  /* right: 2vw; */
   left: 9vw;
 }
 .d-none {
@@ -129,7 +128,7 @@ h1 {
 }
 .btn-third {
   height: 4vw;
-  width: 5vw;
+  width: 4vw;
   border-radius: 50%;
   background: transparent;
   border: 2px solid;

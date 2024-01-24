@@ -1,4 +1,6 @@
-// Audios and musics during the game
+/**
+ * Audios and musics during the game
+ */
 
 const GAME_START_MUSIC = new Audio("./audios/music.mp3");
 const JUMP_SOUND = new Audio("audios/jump.mp3");
@@ -6,8 +8,16 @@ const WIN_SOUND = new Audio("audios/win.mp3");
 const CHICKEN_SOUND = new Audio("audios/chicken.mp3");
 const PEPE_DEAD_SOUND = new Audio("audios/pepe_dead.mp3");
 const PEPE_WALKING_SOUND = new Audio("audios/running.mp3");
+const BOTTLE_SOUND = new Audio("audios/throw.mp3");
+const ENDBOSS_DEAD_SOUND = new Audio("audios/endboss_dead.mp3");
+const CHICKEN_HURT_SOUND = new Audio("audios/chicken_hurt.mp3");
+const PEPE_HURT_SOUND = new Audio("audios/pepe_hurt.mp3");
+const COLLECT_BOTTLE_SOUND = new Audio("audios/collect_bottle.mp3");
+const COLLECT_COIN_SOUND = new Audio("audios/collect_coin.mp3");
 
-// HTML elements and variables
+/**
+ * HTML elements and variables
+ */
 let canvas;
 let btnFullscreen = document.getElementById("btn-fullscreen");
 let volumeBtn = document.getElementById("volume-high");
@@ -16,8 +26,12 @@ let gameInfo = document.getElementById("game-info");
 let gameHelp = document.getElementById("help");
 let keyboard = new Keyboard();
 let world;
-let isRunning = false; // wether the game is running or not (startscreen) - used to control the mobile device options
-let isSoundOn = true; // check is sound is on or off
+/**
+ * wether the game is running or not (startscreen) - used to control the mobile device options
+ *  or check is sound is on or off
+ */
+let isRunning = false;
+let isSoundOn = true;
 
 /**
  * enable or disable the fullscreen option when the fullscreen icon (button) is clicked
@@ -55,8 +69,14 @@ function enableSound() {
   JUMP_SOUND.volume = 0.25;
   WIN_SOUND.volume = 0.25;
   CHICKEN_SOUND.volume = 0.25;
+  CHICKEN_HURT_SOUND.volume = 0.25;
   PEPE_DEAD_SOUND.volume = 0.25;
   PEPE_WALKING_SOUND.volume = 0.25;
+  BOTTLE_SOUND.volume = 0.25;
+  PEPE_HURT_SOUND.volume = 0.25;
+  ENDBOSS_DEAD_SOUND.volume = 0.25;
+  COLLECT_BOTTLE_SOUND.volume = 0.25;
+  COLLECT_COIN_SOUND.volume = 0.25;
   isSoundOn = true;
 }
 
@@ -69,8 +89,14 @@ function disableSound() {
   JUMP_SOUND.volume = 0;
   WIN_SOUND.volume = 0;
   CHICKEN_SOUND.volume = 0;
+  CHICKEN_HURT_SOUND.volume = 0;
   PEPE_DEAD_SOUND.volume = 0;
   PEPE_WALKING_SOUND.volume = 0;
+  BOTTLE_SOUND.volume = 0;
+  PEPE_HURT_SOUND.volume = 0;
+  ENDBOSS_DEAD_SOUND.volume = 0;
+  COLLECT_BOTTLE_SOUND.volume = 0;
+  COLLECT_COIN_SOUND.volume = 0;
   isSoundOn = false;
 }
 
@@ -127,6 +153,7 @@ function init() {
 }
 
 /**
+ * attaches event to keys when down
  * allow playing the game using keys - when specified keys are pressed => event are listened and suitable responses given
  */
 
@@ -155,6 +182,10 @@ window.addEventListener("keydown", function (e) {
   }
 });
 
+/**
+ * disallow the event attached to keys when key is up
+ */
+
 window.addEventListener("keyup", function (e) {
   if (e.key === "ArrowRight") {
     keyboard.RIGHT = false;
@@ -176,6 +207,10 @@ window.addEventListener("keyup", function (e) {
   }
 });
 
+/**
+ * enable display of HTML elements
+ */
+
 function enableDisplay() {
   document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("btn-play").classList.add("d-none");
@@ -183,14 +218,20 @@ function enableDisplay() {
   document.getElementById("help").classList.add("d-none");
 }
 
+/**
+ * disable display of canvas und fullscreen button
+ */
 function disableDisplay() {
   document.getElementById("canvas").classList.remove("d-none");
   btnFullscreen.classList.remove("d-none");
 }
 
+/**
+ * start playing the game and set a flag to true which
+ * is later check to know if the game is running
+ */
 function playGame() {
   isRunning = true;
-
   init();
   addEventListenersMobile();
   enableDisplay();
@@ -200,12 +241,19 @@ function playGame() {
   playMusic();
 }
 
+/**
+ * start music and let it play in loop
+ */
+
 function playMusic() {
   GAME_START_MUSIC.volume = 0.25;
   GAME_START_MUSIC.play();
   GAME_START_MUSIC.loop = true;
 }
 
+/**
+ * allow the user to play the game again when it is over
+ */
 function tryAgain() {
   enableDisplay();
   disableDisplay();
@@ -215,6 +263,10 @@ function tryAgain() {
   init();
   addEventListenersMobile();
 }
+
+/**
+ * event listener for mobile devices
+ */
 
 function addEventListenersMobile() {
   document.getElementById("arrow-left").addEventListener("touchstart", (e) => {
@@ -283,6 +335,10 @@ const markupHelp = `
                     </div>
   `;
 
+/**
+ * render the game infos when the info button is clicked
+ */
+
 function renderGameInfos() {
   document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("btn-play").classList.add("d-none");
@@ -291,6 +347,10 @@ function renderGameInfos() {
   infoPage.innerHTML = markupInfo;
 }
 
+/**
+ * render help for playing the game when the help button is clicked
+ */
+
 function renderGameHelp() {
   document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("btn-play").classList.add("d-none");
@@ -298,6 +358,9 @@ function renderGameHelp() {
   infoPage.classList.remove("d-none");
   infoPage.innerHTML = markupHelp;
 }
+/**
+ * allow closing the help page or returning to the startpage
+ */
 
 function closeInfoPage() {
   document.getElementById("start-screen").classList.remove("d-none");
@@ -305,34 +368,58 @@ function closeInfoPage() {
   infoPage.classList.add("d-none");
 }
 
+/**
+ * asked the user to turn is device when playing on a mobile device
+ */
 function turnScreenOrientation() {
   if (window.mobileCheck()) {
     document.getElementById("main").style.border = "unset";
     document.getElementById("main").style.width = "unset";
     document.getElementById("header").style.display = "none";
     document.querySelector("body").style.margin = "0";
-
-    document.getElementById("arrow-left").classList.remove("d-none");
-    document.getElementById("arrow-right").classList.remove("d-none");
-    document.getElementById("arrow-up").classList.remove("d-none");
-    document.getElementById("throw").classList.remove("d-none");
-    document.querySelector(".help-resp").classList.remove("d-none");
-    document.querySelector(".info-resp").classList.remove("d-none");
+    disableDisplayHTML();
   } else {
     document.getElementById("main").style.border = "12px solid rgba(255, 255, 255, 0.8)";
     document.getElementById("header").style.display = "block";
     document.querySelector("body").style.margin = "8px";
-
-    document.getElementById("arrow-left").classList.add("d-none");
-    document.getElementById("arrow-right").classList.add("d-none");
-    document.getElementById("arrow-up").classList.add("d-none");
-    document.getElementById("throw").classList.add("d-none");
+    enableDisplayHTML();
   }
 }
 
+/**
+ * disable the display of HTML elements
+ */
+function disableDisplayHTML() {
+  document.getElementById("arrow-left").classList.remove("d-none");
+  document.getElementById("arrow-right").classList.remove("d-none");
+  document.getElementById("arrow-up").classList.remove("d-none");
+  document.getElementById("throw").classList.remove("d-none");
+  document.querySelector(".help-resp").classList.remove("d-none");
+  document.querySelector(".info-resp").classList.remove("d-none");
+}
+
+/**
+ * enable the display of HTML elements
+ */
+
+function enableDisplayHTML() {
+  document.getElementById("arrow-left").classList.add("d-none");
+  document.getElementById("arrow-right").classList.add("d-none");
+  document.getElementById("arrow-up").classList.add("d-none");
+  document.getElementById("throw").classList.add("d-none");
+}
+
+/**
+ * call the function every 0.1 second to check the device type
+ */
 setInterval(() => {
   turnScreenOrientation();
 }, 100);
+
+/**
+ * This function check the type of device with the parameters of all types of mobile devices and return true or false
+ * @returns boolean - true or false wether user is currently trying to play on a mobile device (current device is mobile device => true)
+ */
 
 window.mobileCheck = function () {
   let check = false;

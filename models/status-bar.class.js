@@ -9,6 +9,10 @@ class StatusBar extends DrawableObject {
   ];
 
   percentage = 100;
+
+  /**
+   * add status bar for Character
+   */
   constructor() {
     super();
     this.loadImages(this.IMAGES);
@@ -18,13 +22,20 @@ class StatusBar extends DrawableObject {
     this.height = 60;
     this.setPercentage(100);
   }
-
+  /**
+   * set current status bar of the character
+   * @param {number} percentage
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
+  /**
+   *
+   * @returns value to control status bar of the character
+   */
   resolveImageIndex() {
     if (this.percentage === 100) {
       return 5;

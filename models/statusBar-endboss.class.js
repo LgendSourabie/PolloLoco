@@ -9,6 +9,9 @@ class StatusEndboss extends DrawableObject {
   ];
 
   percentage = 10;
+  /**
+   * Add status bar for the endboss
+   */
   constructor() {
     super();
     this.loadImages(this.IMAGES);
@@ -19,12 +22,19 @@ class StatusEndboss extends DrawableObject {
     this.setPercentage(10);
   }
 
+  /**
+   * set percentage for the status bar
+   * @param {number} percentage
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
+  /**
+   * control current value of status bar
+   */
   resolveImageIndex() {
     if (this.percentage === 10) {
       return 5;

@@ -8,6 +8,10 @@ class Coin extends MovableObject {
 
   IMAGES = ["img/8_coin/coin_1.png", "img/8_coin/coin_2.png"];
 
+  /**
+   *
+   * @param {number} x - start position of coin to be added in canvas
+   */
   constructor(x) {
     super().loadImage(this.IMAGES[0]);
     this.loadImages(this.IMAGES);
@@ -16,6 +20,9 @@ class Coin extends MovableObject {
     this.animate();
   }
 
+  /**
+   * display the image of coin in canvas
+   */
   animate() {
     setInterval(() => {
       this.playAnimation(this.IMAGES);

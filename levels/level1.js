@@ -1,5 +1,8 @@
 let level1;
 
+/**
+ * Arrays of objects that are used in the game
+ */
 function initLevel() {
   level1 = new Level(
     [

@@ -9,6 +9,9 @@ class StatusCoin extends DrawableObject {
   ];
 
   percentage = 0;
+  /**
+   * add status bar fo coin
+   */
   constructor() {
     super();
     this.loadImages(this.IMAGES);
@@ -19,6 +22,10 @@ class StatusCoin extends DrawableObject {
     this.setPercentage(0);
   }
 
+  /**
+   * set the value of status bar
+   * @param {number} percentage
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndexCoinBottle()];
