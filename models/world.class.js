@@ -73,13 +73,12 @@ class World {
       this.checkCollisionsBottleEnemies();
     }, 200);
   }
-
   /**
    * check if bottle is thrown
    */
   checkThrowObject() {
     if (this.keyboard.D && this.remainingBottles > 0) {
-      this.remainingBottles -= 21;
+      this.remainingBottles -= 10;
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
       this.throwableObjects.push(bottle);
       this.statusBottle.setPercentage(this.remainingBottles);
@@ -112,7 +111,7 @@ class World {
   checkCollisionWithCoins() {
     this.level.coins.forEach((coin, i) => {
       if (this.character.isColliding(coin)) {
-        this.remainingCoins += 21;
+        this.remainingCoins += 10;
         COLLECT_COIN_SOUND.play();
         this.statusCoin.setPercentage(this.remainingCoins);
         this.level.coins.splice(i, 1);
@@ -126,10 +125,12 @@ class World {
   checkCollisionWithBottle() {
     this.level.bottles.forEach((bottle, i) => {
       if (this.character.isColliding(bottle)) {
-        this.remainingBottles += 21;
-        COLLECT_BOTTLE_SOUND.play();
-        this.statusBottle.setPercentage(this.remainingBottles);
-        this.level.bottles.splice(i, 1);
+        if (this.remainingBottles < 100) {
+          this.remainingBottles += 10;
+          COLLECT_BOTTLE_SOUND.play();
+          this.statusBottle.setPercentage(this.remainingBottles);
+          this.level.bottles.splice(i, 1);
+        }
       }
     });
   }
@@ -146,7 +147,7 @@ class World {
         this.character.jump();
       }
       this.level.enemies[removeEnemyIndex].chickenDead();
-      this.deleteEnemy(object, this.level.enemies, removeEnemyIndex);
+      this.level.enemies.splice(removeEnemyIndex, 1);
       CHICKEN_HURT_SOUND.play();
     } else {
       this.character.hit(lostEnergy);
@@ -154,19 +155,6 @@ class World {
     }
   }
 
-  /**
-   * remove chicken from canvas (chicken is dead)
-   * @param {Object} currentEnemy - chicken to be deleted
-   * @param {Array} allEnemies - Array of chickens
-   * @param {number} indexOfEnemy - index of the chicken to be deleted
-   */
-  deleteEnemy(currentEnemy, allEnemies, indexOfEnemy) {
-    let time;
-    time = currentEnemy.isAboveGround() ? 0 : 120;
-    setTimeout(() => {
-      allEnemies.splice(indexOfEnemy, 1);
-    }, time);
-  }
   /**
    *
    * @param {Object} bottle - object is a bottle

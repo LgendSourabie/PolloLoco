@@ -28,13 +28,15 @@ class Chicken extends MovableObject {
    * animate chicken by playing image animation and moving chicken to the left
    */
   animate() {
-    setInterval(() => {
+    let interval_ID = setInterval(() => {
       this.moveLeft();
     }, 1000 / 60);
 
-    setInterval(() => {
+    let interval_ID2 = setInterval(() => {
       if (this.isDead()) {
         this.loadImage(this.IMAGES_DEAD);
+        clearInterval(interval_ID);
+        clearInterval(interval_ID2);
       } else {
         this.playAnimation(this.IMAGES_WALKING);
       }

@@ -37,7 +37,7 @@ class SmallChicken extends MovableObject {
    * animates small chicken move left and plays animation
    */
   animate() {
-    setInterval(() => {
+    let interval_ID = setInterval(() => {
       this.moveLeft();
     }, 1000 / 60);
 
@@ -48,12 +48,14 @@ class SmallChicken extends MovableObject {
       if (!this.isDead()) this.jump();
     }, 4000);
 
-    setInterval(() => {
+    let interval_ID2 = setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+        clearInterval(interval_ID);
+        clearInterval(interval_ID2);
       } else {
         this.playAnimation(this.IMAGES_WALKING);
       }
-    }, 200);
+    }, 100);
   }
 }

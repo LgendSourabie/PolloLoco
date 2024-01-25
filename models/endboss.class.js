@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
   energy = 10;
   y = 91;
   endbossHealth = 10;
+  speed = 0.2;
 
   /**
    * these parameters allow an accurate capture of the collision of  character with endboss
@@ -74,20 +75,47 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_DEAD);
         setTimeout(() => {
           for (let i = 1; i < 9999; i++) window.clearInterval(i);
-        }, 1000 / 60);
+        }, 1000 / 25);
         WIN_SOUND.play();
         this.showGameOverWinScreen();
-      } else if (this.endbossHealth < 10 && this.endbossHealth >= 6) {
+      } else if (this.isEndbossAttack()) {
         this.playAnimation(this.IMAGES_WALKING);
-        setInterval(() => {
-          this.moveLeft();
-        }, 1000 / 60);
+        this.moveBossLeft();
       } else if (this.endbossHealth <= 5) {
         this.playAnimation(this.IMAGES_HURT);
       } else {
         this.playAnimation(this.IMAGES_ALERT);
       }
     }, 200);
+  }
+
+  isEndbossAttack() {
+    return this.endbossHealth < 10 && this.endbossHealth >= 6;
+  }
+
+  /**
+   * move endboss to the left
+   */
+  moveBossLeft() {
+    setInterval(() => {
+      this.moveLeft();
+    }, 1000 / 60);
+  }
+
+  /**
+   *
+   * @returns boolean true / false wether endboss should turn right
+   */
+  shouldTurnRight() {
+    return (this.otherDirection = true);
+  }
+
+  /**
+   *
+   * @returns boolean true / false wether endboss should turn left
+   */
+  shouldTurnLeft() {
+    return (this.otherDirection = false);
   }
 
   /**

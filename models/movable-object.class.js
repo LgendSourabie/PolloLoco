@@ -65,6 +65,10 @@ class MovableObject extends DrawableObject {
       this.y + this.offset_yPlus < mo.y + mo.height - mo.offset_yMinus
     );
   }
+
+  distanceEndbossCharacter(mov) {
+    return mov.x - this.x;
+  }
   /**
    * check if the Object has been hit
    * @param {number} lostEnergy - amount to withdraw from the current energy of the Object
