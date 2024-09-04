@@ -13,18 +13,18 @@ class SmallChicken extends MovableObject {
   offset_yMinus = 0;
 
   IMAGES_WALKING = [
-    "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
-    "img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
-    "img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
+    "../assets/3_enemies_chicken/chicken_small/1_walk/1_w.png",
+    "../assets/3_enemies_chicken/chicken_small/1_walk/2_w.png",
+    "../assets/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
-  IMAGES_DEAD = ["img/3_enemies_chicken/chicken_small/2_dead/dead.png"];
+  IMAGES_DEAD = ["../assets/3_enemies_chicken/chicken_small/2_dead/dead.png"];
 
   /**
    *
    * @param {number} x - start position of small chicken to be added
    */
   constructor(x) {
-    super().loadImage("img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
+    super().loadImage("../assets/3_enemies_chicken/chicken_small/1_walk/1_w.png");
     this.x = x + Math.random() * 250; // current position of small chickens
     this.speed = 0.15 + Math.random() * 0.25; // speed of small chicken when moving towards the character
     this.loadImages(this.IMAGES_WALKING);

@@ -2,18 +2,18 @@
  * Audios and musics during the game
  */
 
-const GAME_START_MUSIC = new Audio("./audios/music.mp3");
-const JUMP_SOUND = new Audio("audios/jump.mp3");
-const WIN_SOUND = new Audio("audios/win.mp3");
-const CHICKEN_SOUND = new Audio("audios/chicken.mp3");
-const PEPE_DEAD_SOUND = new Audio("audios/pepe_dead.mp3");
-const PEPE_WALKING_SOUND = new Audio("audios/running.mp3");
-const BOTTLE_SOUND = new Audio("audios/throw.mp3");
-const ENDBOSS_DEAD_SOUND = new Audio("audios/endboss_dead.mp3");
-const CHICKEN_HURT_SOUND = new Audio("audios/chicken_hurt.mp3");
-const PEPE_HURT_SOUND = new Audio("audios/pepe_hurt.mp3");
-const COLLECT_BOTTLE_SOUND = new Audio("audios/collect_bottle.mp3");
-const COLLECT_COIN_SOUND = new Audio("audios/collect_coin.mp3");
+const GAME_START_MUSIC = new Audio("../assets/audios/music.mp3");
+const JUMP_SOUND = new Audio("../assets/audios/jump.mp3");
+const WIN_SOUND = new Audio("../assets/audios/win.mp3");
+const CHICKEN_SOUND = new Audio("../assets/audios/chicken.mp3");
+const PEPE_DEAD_SOUND = new Audio("../assets/audios/pepe_dead.mp3");
+const PEPE_WALKING_SOUND = new Audio("../assets/audios/running.mp3");
+const BOTTLE_SOUND = new Audio("../assets/audios/throw.mp3");
+const ENDBOSS_DEAD_SOUND = new Audio("../assets/audios/endboss_dead.mp3");
+const CHICKEN_HURT_SOUND = new Audio("../assets/audios/chicken_hurt.mp3");
+const PEPE_HURT_SOUND = new Audio("../assets/audios/pepe_hurt.mp3");
+const COLLECT_BOTTLE_SOUND = new Audio("../assets/audios/collect_bottle.mp3");
+const COLLECT_COIN_SOUND = new Audio("../assets/audios/collect_coin.mp3");
 
 /**
  * HTML elements and variables
@@ -57,8 +57,8 @@ volumeBtn.addEventListener("click", () => {
 function toggleVolumeBtn() {
   let volumeIcon = document.getElementById("volume-icon");
   let currentVolumeBtn = volumeIcon.getAttribute("src");
-  if (currentVolumeBtn === "./icons/volume-high.svg") volumeIcon.setAttribute("src", "./icons/volume-xmark.svg");
-  else volumeIcon.setAttribute("src", "./icons/volume-high.svg");
+  if (currentVolumeBtn === "../assets/icons/volume-high.svg") volumeIcon.setAttribute("src", "../assets/icons/volume-xmark.svg");
+  else volumeIcon.setAttribute("src", "../assets/icons/volume-high.svg");
 }
 
 /**
@@ -305,32 +305,32 @@ function addEventListenersMobile() {
 
 const markupInfo = `
                     <h2>What is El Pollo loco?</h2>
-                    <button class="btn-fi  btn-third btn-close" onclick="closeInfoPage()"><img src="./icons/xmark-solid.svg" alt="Close" /></button>
+                    <button class="btn-fi  btn-third btn-close" onclick="closeInfoPage()"><img src="../assets/icons/xmark-solid.svg" alt="Close" /></button>
                     <span class="big-letter">W</span>elcome to "El Pollo Loco," a thrilling adventure set in the scorching desert of Spain! Take control of our fearless protagonist, Pepe, as he navigates the arid landscape teeming with feisty foes—small chickens, standard chickens, and formidable Enboss chickens. Your mission is to guide Pepe through this poultry peril, armed with the ability to jump on or throw bottles at the smaller chickens, while the Enboss requires a strategic barrage of bottles to defeat. As Pepe ventures through the desert, make sure to collect valuable bottles and coins strewn along the way to enhance your chances of survival. Master the art of timing and precision to triumph over the clucking chaos that awaits you in "El Pollo Loco"! Are you ready to prove yourself against the relentless chicken onslaught? May the desert winds guide you, adventurer!
   `;
 
 const markupHelp = `
                     <h2>Game Instructions</h2>
-                    <button class="btn-fi  btn-third btn-close" onclick="closeInfoPage()"><img src="./icons/xmark-solid.svg" alt="Close" /></button>
+                    <button class="btn-fi  btn-third btn-close" onclick="closeInfoPage()"><img src="../assets/icons/xmark-solid.svg" alt="Close" /></button>
 
                     <div>
-                    <button id="arrow-left" class="btn-fi btn-third "><img src="./icons/arrow-left.svg" alt="Left" /></button>
+                    <button id="arrow-left" class="btn-fi btn-third "><img src="../assets/icons/arrow-left.svg" alt="Left" /></button>
                     <p>Move backward and navigate through the challenging desert terrain. </p>
                     </div>
                     <div>
-                    <button id="arrow-right" class="btn-fi  btn-third "><img src="./icons/arrow-right.svg" alt="Right" /></button>
+                    <button id="arrow-right" class="btn-fi  btn-third "><img src="../assets/icons/arrow-right.svg" alt="Right" /></button>
                     <p>Forge ahead, overcoming obstacles and confronting the relentless chicken enemies.</p>
                     </div>
                     <div>
-                    <button id="arrow-up" class="btn-fi  btn-third "><img src="./icons/arrow-up.svg" alt="Up" /></button>
+                    <button id="arrow-up" class="btn-fi  btn-third "><img src="../assets/icons/arrow-up.svg" alt="Up" /></button>
                     <p>Take a leap into the air with a skillful jump to avoid chicken attacks or reach higher platforms. </p>
                     </div>
                     <div>
-                    <button id="throw" class="btn-fi  btn-third-fi "><img src="./icons/circle.svg" alt="Throw" /></button>
+                    <button id="throw" class="btn-fi  btn-third-fi "><img src="../assets/icons/circle.svg" alt="Throw" /></button>
                     <p>Equip Pepe with the ability to defend himself by hurling bottles at the oncoming chicken adversaries. Use this strategic move to eliminate both small chickens and the formidable Enboss. </p>
                     </div>
                     <div>
-                    <button id="btn-fullscreen" class="btn-fi btn-full-rect"><img src="./icons/maximize.svg" alt="Fullscreen" /></button>
+                    <button id="btn-fullscreen" class="btn-fi btn-full-rect"><img src="../assets/icons/maximize.svg" alt="Fullscreen" /></button>
                     <p>Additionally, for an immersive gaming experience, use the Square Button to toggle fullscreen mode. Immerse yourself fully in the vibrant and challenging world of "El Pollo Loco" as you navigate the desert landscape, battle chickens, and collect valuable items. Enjoy the game in all its glory with the square button, and may your journey through the desert be both thrilling and visually captivating! </p>
                     </div>
   `;

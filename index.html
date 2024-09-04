@@ -1,44 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" translate="no">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css " />
     <!-- // Favicon start -->
-    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png" />
-    <link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#5bbad5" />
-    <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <!-- Favicon end -->
-    <script src="./models/drawable-object.class.js"></script>
-    <script src="./models/movable-object.class.js"></script>
-    <script src="./models/character.class.js"></script>
-    <script src="./models/chicken.class.js"></script>
-    <script src="./models/chicken-small.class.js"></script>
-    <script src="./models/cloud.class.js"></script>
-    <!-- <script src="./models/status-object.class.js"></script> -->
-    <script src="./models/status-bar.class.js"></script>
-    <script src="./models/statusBar-bottle.class.js"></script>
-    <script src="./models/statusBar-coin.class.js"></script>
-    <script src="./models/statusBar-endboss.class.js"></script>
-    <script src="./models/bottle.class.js"></script>
-    <script src="./models/coin.class.js"></script>
-    <script src="./models/world.class.js"></script>
-    <script src="./models/background-object.class.js"></script>
-    <script src="./models/keyboard.class.js"></script>
-    <script src="./models/throwable-object.class.js"></script>
-    <script src="./models/level.class.js"></script>
-    <script src="./models/endboss.class.js"></script>
-    <script src="./levels/level1.js"></script>
-    <title>El Pollo Loco</title>
+    <script src="models/drawable-object.class.js"></script>
+    <script src="models/movable-object.class.js"></script>
+    <script src="models/character.class.js"></script>
+    <script src="models/chicken.class.js"></script>
+    <script src="models/chicken-small.class.js"></script>
+    <script src="models/cloud.class.js"></script>
+    <!-- <script src="models/status-object.class.js"></script> -->
+    <script src="models/status-bar.class.js"></script>
+    <script src="models/statusBar-bottle.class.js"></script>
+    <script src="models/statusBar-coin.class.js"></script>
+    <script src="models/statusBar-endboss.class.js"></script>
+    <script src="models/bottle.class.js"></script>
+    <script src="models/coin.class.js"></script>
+    <script src="models/world.class.js"></script>
+    <script src="models/background-object.class.js"></script>
+    <script src="models/keyboard.class.js"></script>
+    <script src="models/throwable-object.class.js"></script>
+    <script src="models/level.class.js"></script>
+    <script src="models/endboss.class.js"></script>
+    <script src="levels/level1.js"></script>
+    <title>El Pollo Loco | Ibrahima Sourabie</title>
   </head>
   <body id="body" class="landscape">
     <h1 id="header">El Pollo loco</h1>
     <main id="main">
       <canvas class="canvas d-none" id="canvas" width="720" height="480"></canvas>
-      <img id="start-screen" class="startscreen" src="./img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
+      <img id="start-screen" class="startscreen" src="assets/9_intro_outro_screens/start/startscreen_2.png" alt="" />
       <!-- // button group to play the game on mobile devices -->
       <div id="btn-grp-game-info">
         <button id="help" class="help-btn-1 help-resp" onclick="renderGameHelp()">?</button>
@@ -47,24 +42,24 @@
       <button id="btn-play" class="btn btn-play" onclick="playGame()">Play Game</button>
       <button id="btn-try-again" class="btn btn-play btn-try-again d-none" onclick="tryAgain()">Try Again</button>
       <div class="btn-mobile-play">
-        <button id="arrow-left" class="btn btn-secondary btn-left d-none"><img src="./icons/arrow-left.svg" alt="Left" /></button>
-        <button id="arrow-right" class="btn btn-secondary btn-right d-none"><img src="./icons/arrow-right.svg" alt="Right" /></button>
-        <button id="arrow-up" class="btn btn-secondary btn-up d-none"><img src="./icons/arrow-up.svg" alt="Up" /></button>
-        <button id="throw" class="btn btn-secondary btn-throw d-none"><img src="./icons/circle.svg" alt="Throw" /></button>
+        <button id="arrow-left" class="btn btn-secondary btn-left d-none"><img src="assets/icons/arrow-left.svg" alt="Left" /></button>
+        <button id="arrow-right" class="btn btn-secondary btn-right d-none"><img src="assets/icons/arrow-right.svg" alt="Right" /></button>
+        <button id="arrow-up" class="btn btn-secondary btn-up d-none"><img src="assets/icons/arrow-up.svg" alt="Up" /></button>
+        <button id="throw" class="btn btn-secondary btn-throw d-none"><img src="assets/icons/circle.svg" alt="Throw" /></button>
       </div>
-      <button id="volume-high" class="btn btn-volume d-none"><img id="volume-icon" src="./icons/volume-high.svg" alt="Volume" /></button>
-      <button id="btn-fullscreen" class="btn btn-fullscreen d-none"><img src="./icons/maximize.svg" alt="Fullscreen" /></button>
+      <button id="volume-high" class="btn btn-volume d-none"><img id="volume-icon" src="assets/icons/volume-high.svg" alt="Volume" /></button>
+      <button id="btn-fullscreen" class="btn btn-fullscreen d-none"><img src="assets/icons/maximize.svg" alt="Fullscreen" /></button>
       <!-- // Container for info about how to play the game -->
       <div id="info-container" class="how-to-play full-canvas d-none">info</div>
       <!-- //Game over page to which allow the user to play the game again -->
 
-      <img id="game-over-win" class="game-over d-none" src="./img/9_intro_outro_screens/game_over/game over!.png" alt="Game over" />
-      <img id="game-over-lost" class="game-over d-none" src="./img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="Game over" />
-      <div id="turn-screen" class="turn-screen d-none"><img class="mobile" src="./icons/mobile-screen.svg" alt="Mobile" /></div>
+      <img id="game-over-win" class="game-over d-none" src="assets/9_intro_outro_screens/game_over/game over!.png" alt="Game over" />
+      <img id="game-over-lost" class="game-over d-none" src="assets/9_intro_outro_screens/game_over/oh no you lost!.png" alt="Game over" />
+      <div id="turn-screen" class="turn-screen d-none"><img class="mobile" src="assets/icons/mobile-screen.svg" alt="Mobile" /></div>
 
       <button class="btn btn-play d-none">Play Again</button>
     </main>
 
-    <script src="./js/game.js"></script>
+    <script src="js/game.js"></script>
   </body>
 </html>

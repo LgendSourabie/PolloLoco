@@ -6,7 +6,7 @@ class Coin extends MovableObject {
   offset_yPlus = 20;
   offset_yMinus = 20;
 
-  IMAGES = ["img/8_coin/coin_1.png", "img/8_coin/coin_2.png"];
+  IMAGES = ["../assets/8_coin/coin_1.png", "../assets/8_coin/coin_2.png"];
 
   /**
    *

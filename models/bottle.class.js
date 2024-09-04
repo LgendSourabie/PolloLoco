@@ -14,7 +14,7 @@ class Bottle extends DrawableObject {
   offset_xMinus = 20;
   offset_yPlus = 15;
   offset_yMinus = 5;
-  IMAGES = ["img/6_salsa_bottle/1_salsa_bottle_on_ground.png", "img/6_salsa_bottle/2_salsa_bottle_on_ground.png"];
+  IMAGES = ["../assets/6_salsa_bottle/1_salsa_bottle_on_ground.png", "../assets/6_salsa_bottle/2_salsa_bottle_on_ground.png"];
 
   /**
    *
